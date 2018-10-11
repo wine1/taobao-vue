@@ -1,0 +1,963 @@
+{
+    "moduleConfigVersion": "-1",
+    "moduleConfig": {
+      "order_card_moduleConfig": {
+        "data": {
+          "deliveryList": "${orderModule.deliveryList}",
+            "orderInfo": {
+              "order2Pay": {
+                "icon": "https://gw.alicdn.com/tfs/TB16GolmKuSBuNjy1XcXXcYjFXa-87-87.png",
+                "name": "待付款",
+                "count": "0",
+                "tag": "http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/af7e8f51ad72566426a3ece1d15846d1.png"
+              },
+              "order2Deliver": {
+                "icon": "https://gw.alicdn.com/tfs/TB1cwzgmMmTBuNjy1XbXXaMrVXa-87-87.png",
+                "name": "待发货",
+                "count": "0",
+                "tag": "http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/af7e8f51ad72566426a3ece1d15846d1.png"
+              },
+              "order2Receive": {
+                "icon": "https://gw.alicdn.com/tfs/TB1b3zgmMmTBuNjy1XbXXaMrVXa-87-87.png",
+                "name": "待收货",
+                "count": "0",
+                "tag": "http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/af7e8f51ad72566426a3ece1d15846d1.png"
+              },
+              "order2Rate": {
+                "icon": "https://gw.alicdn.com/tfs/TB1fOKqm_tYBeNjy1XdXXXXyVXa-87-87.png",
+                "name": "待评价",
+                "count": "0",
+                "tag": "http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/af7e8f51ad72566426a3ece1d15846d1.png"
+              },
+              "order2Refund": {
+                "icon": "https://gw.alicdn.com/tfs/TB1fMzgmMmTBuNjy1XbXXaMrVXa-87-87.png",
+                "count": "0",
+                "name": "退款/售后",
+                "tag": "http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/af7e8f51ad72566426a3ece1d15846d1.png"
+              }
+            },
+          "moreUrl": "http://tm.m.taobao.com/list.htm?OrderListType=total_orders",
+          "subTitle": "查看全部订单",
+          "title": "我的订单"
+        },
+        "event": {
+          "open2Pay": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "http://tm.m.taobao.com/list.htm?OrderListType=wait_to_pay"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-WaitToPay",
+                "spm": "a2141.7631743.3.21"
+              }
+            }
+          ],
+          "open2Deliver": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "http://tm.m.taobao.com/list.htm?OrderListType=wait_to_shipments"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-WaitToShiping",
+                "spm": "a2141.7631743.3.22"
+              }
+            }
+          ],
+          "open2Receive": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "http://tm.m.taobao.com/list.htm?OrderListType=wait_to_confirm"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-WaitToConfirm",
+                "spm": "a2141.7631743.3.23"
+              }
+            }
+          ],
+          "open2Rate": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "http://tm.m.taobao.com/list.htm?OrderListType=wait_to_evaluate"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-WaitToRate",
+                "spm": "a2141.7631743.3.24"
+              }
+            }
+          ],
+          "open2Refund": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "https://refund.m.taobao.com/dispute/wirelessList.htm"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-RefundOrderList",
+                "spm": "a2141.7631743.3.25"
+              }
+            }
+          ],
+          "openMore": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "http://tm.m.taobao.com/list.htm?OrderListType=total_orders"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-AllOrder",
+                "spm": "a2141.7631743.3.20"
+              }
+            }
+          ]
+        },
+        "track": {},
+        "template": {
+          "name": "mytaobao_v4_order_list",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_order_list/41522849/mytaobao_v4_order_list_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_order_list/41522849/mytaobao_v4_order_list_android.xml",
+          "version": "7"
+        },
+        "subTemplate": {
+          "name": "mytaobao_deliverlist_item",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_deliverlist_item/41442367/mytaobao_deliverlist_item_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_deliverlist_item/41442367/mytaobao_deliverlist_item_android.xml",
+          "version": "18"
+        },
+        "renderType": "dinamic"
+      },
+      "vip_card_moduleConfig": {
+        "data": {
+          "left": "${benefitModule.left}",
+          "right": "${benefitModule.right}",
+          "background": "${benefitModule.background}",
+          "leftFontColor": "${benefitModule.leftFontColor}",
+          "rightFontColor": "${benefitModule.rightFontColor}"
+        },
+        "event": {
+          "openVipLeft": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${benefitModule.left[0].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-Vipsymbol",
+                "spm": "a2141.7631743.1.26"
+              }
+            }
+          ]
+        },
+        "track": {},
+        "template": {
+          "name": "mytaobao_v4_vip",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_vip/41434943/mytaobao_v4_vip_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_vip/41434943/mytaobao_v4_vip_android.xml",
+          "version": "4"
+        },
+        "subTemplate": {
+          "name": "mytaobao_viplist_item",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_viplist_item/39013363/mytaobao_viplist_item_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_viplist_item/39013363/mytaobao_viplist_item_android.xml",
+          "version": "13"
+        },
+        "renderType": "dinamic"
+      },
+      "fav_card_moduleConfig": {
+        "data": {
+          "favoriteCnt": "${favModule.favoriteCnt}",
+          "followCnt": "${favModule.followCnt}",
+          "footprintCnt": "${favModule.footprintCnt}",
+          "cardPackageCnt": "${favModule.cardPackageCnt}"
+        },
+        "event": {
+          "openFav": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${favModule.favoriteCnt.url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-ItemFavorite",
+                "spm": "a2141.7631743.2.20"
+              }
+            }
+          ],
+          "openShop": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${favModule.followCnt.url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-wodeguanzhu",
+                "spm": "a2141.7631743.2.21"
+              }
+            }
+          ],
+          "openFoot": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${favModule.footprintCnt.url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-Footprints",
+                "spm": "a2141.7631743.2.22"
+              }
+            }
+          ],
+          "openCardPackage": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${favModule.cardPackageCnt.url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-Benefits",
+                "spm": "a2141.7631743.2.23"
+              }
+            }
+          ]
+        },
+        "track": {},
+        "template": {
+          "name": "mytaobao_v4_transprant_favorite",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_transprant_favorite/40410161/mytaobao_v4_transprant_favorite_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_transprant_favorite/40410161/mytaobao_v4_transprant_favorite_android.xml",
+          "version": "1"
+        },
+        "renderType": "dinamic"
+      },
+      "userInfo_card_moduleConfig": {
+        "data": {
+          "nick": "${userInfoModule.nick}",
+          "subIcon": "${userInfoModule.subIcon}",
+          "subUrl": "${userInfoModule.subUrl}",
+          "userLogoUrl": "${userInfoModule.userLogoUrl}",
+          "userLogo": "${userInfoModule.userLogo}",
+          "vipIcon": "${userInfoModule.vipIcon}"
+        },
+        "event": {
+          "openUserLogo": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${userInfoModule.userLogoUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-MyFace",
+                "spm": "a2141.7631743.1.20"
+              }
+            }
+          ],
+          "openName": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${userInfoModule.userLogoUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-MyNickName",
+                "spm": "a2141.7631743.1.25"
+              }
+            }
+          ],
+          "openSubIcon": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${userInfoModule.subUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-MyFamily",
+                "spm": "a2141.7631743.1.32"
+              }
+            }
+          ],
+          "openSetting": [
+            {
+              "key": "open_setting_url",
+              "params": {}
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-Setting",
+                "spm": "a2141.7631743.1.23"
+              }
+            }
+          ]
+        },
+        "track": {},
+        "template": {
+          "name": "mytaoabo_v4_header_view",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v5_header_view/51827232/mytaobao_v5_header_view_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v5_header_view/51827232/mytaobao_v5_header_view_android.xml",
+          "version": "7"
+        },
+        "renderType": "dinamic"
+      },
+      "tools_card_moduleConfig": {
+        "data": {
+          "list": "${toolModule.list}",
+          "toolNotice":"${toolsNotice}",
+          "moreUrl": "https://my.m.taobao.com/allapps.htm",
+          "subTitle": "查看全部工具",
+          "title": "必备工具"
+        },
+        "event": {
+          "open1": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[0].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon1",
+                "spm": "a2141.7631743.4.21",
+                "scm": "${toolModule.list[0].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[0]}"
+              }
+            }
+          ],
+          "open2": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[1].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon2",
+                "spm": "a2141.7631743.4.22",
+                "scm": "${toolModule.list[1].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[1]}"
+              }
+            }
+          ],
+          "open3": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[2].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon3",
+                "spm": "a2141.7631743.4.23",
+                "scm": "${toolModule.list[2].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[2]}"
+              }
+            }
+          ],
+          "open4": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[3].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon4",
+                "spm": "a2141.7631743.4.24",
+                "scm": "${toolModule.list[3].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[3]}"
+              }
+            }
+          ],
+          "open5": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[4].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon5",
+                "spm": "a2141.7631743.4.25",
+                "scm": "${toolModule.list[4].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[4]}"
+              }
+            }
+          ],
+          "open6": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[5].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon6",
+                "spm": "a2141.7631743.4.26",
+                "scm": "${toolModule.list[5].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[5]}"
+              }
+            }
+          ],
+          "open7": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[6].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon7",
+                "spm": "a2141.7631743.4.27",
+                "scm": "${toolModule.list[6].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[6]}"
+              }
+            }
+          ],
+          "open8": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolModule.list[7].url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-icon8",
+                "spm": "a2141.7631743.4.28",
+                "scm": "${toolModule.list[7].scm}"
+              }
+            },
+            {
+              "key": "cache_guide_tool",
+              "params": {
+                "item":"${toolModule.list[7]}"
+              }
+            }
+          ],
+          "openMore": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "https://my.m.taobao.com/allapps.htm"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-more",
+                "spm": "a2141.7631743.4.20"
+              }
+            }
+          ],
+          "openNotice": [
+            {
+              "key": "open_url",
+              "params": {
+                "url": "${toolsNotice.url}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-appNotice",
+                "spm": "a2141.7631743.1.33"
+              }
+            }
+          ]
+        },
+        "track": {
+          "onAppear":[
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon1",
+                "spm": "a2141.7631743.4.21",
+                "scm": "${toolModule.list[0].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon2",
+                "spm": "a2141.7631743.4.22",
+                "scm": "${toolModule.list[1].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon3",
+                "spm": "a2141.7631743.4.23",
+                "scm": "${toolModule.list[2].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon4",
+                "spm": "a2141.7631743.4.24",
+                "scm": "${toolModule.list[3].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon5",
+                "spm": "a2141.7631743.4.25",
+                "scm": "${toolModule.list[4].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon6",
+                "spm": "a2141.7631743.4.26",
+                "scm": "${toolModule.list[5].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon7",
+                "spm": "a2141.7631743.4.27",
+                "scm": "${toolModule.list[6].scm}"
+              }
+            },
+            {
+              "key": "ut_exposure",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Show-icon8",
+                "spm": "a2141.7631743.4.28",
+                "scm": "${toolModule.list[7].scm}"
+              }
+            }
+          ]},
+        "template": {
+          "name": "mytaobao_v4_round_tools",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_round_tools/40745373/mytaobao_v4_round_tools_ios.plist",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_round_tools/51818027/mytaobao_v4_round_tools_android.xml",
+          "version": "3"
+        },
+        "renderType": "dinamic"
+      },
+      "bigsale_card_moduleConfig": {
+        "data": {
+          "list": "${gridBigSaleModule.list}"
+        },
+        "event": {
+          "open1": [
+            {
+              "key": "open_url",
+              "params": {
+                "url":"${gridBigSaleModule.list[0].linkUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-HuoDong1",
+                "spm": "a2141.7631743.9.20"
+              }
+            }
+          ],
+          "open2": [
+            {
+              "key": "open_url",
+              "params": {
+                "url":"${gridBigSaleModule.list[1].linkUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-HuoDong2",
+                "spm": "a2141.7631743.9.21"
+              }
+            }
+          ],
+          "open3": [
+            {
+              "key": "open_url",
+              "params": {
+                "url":"${gridBigSaleModule.list[2].linkUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-HuoDong3",
+                "spm": "a2141.7631743.9.22"
+              }
+            }
+          ],
+          "open4": [
+            {
+              "key": "open_url",
+              "params": {
+                "url":"${gridBigSaleModule.list[3].linkUrl}"
+              }
+            },
+            {
+              "key": "user_track",
+              "params": {
+                "pageName": "Page_MyTaobao",
+                "controlName": "Button-HuoDong4",
+                "spm": "a2141.7631743.9.23"
+              }
+            }
+          ]
+        },
+        "track": {},
+        "template": {
+          "name": "mytaobao_v4_round_banner_bigsale",
+          "androidUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_round_banner_bigsale/40150511/mytaobao_v4_round_banner_bigsale_android.xml",
+          "iosUrl": "https://ossgw.alicdn.com/rapid-oss-bucket/template_online/mytaobao_v4_round_banner_bigsale/40150511/mytaobao_v4_round_banner_bigsale_ios.plist",
+          "version": "1"
+        },
+        "renderType": "dinamic"
+      }
+    },
+    "dataConfigVersion": "-1",
+    "dataConfig": {
+      "skin": {
+        "headUrl": "http://h5.m.taobao.com/account/index.html",
+        "userNameUrl": "",
+        "skinPic": "https://gw.alicdn.com/tfs/TB1osNJgSCWBuNjy0FhXXb6EVXa-1125-570.png?getAvatar=avatar",
+        "skinPicForiPhoneX": "https://gw.alicdn.com/tfs/TB1lX9jgNWYBuNjy1zkXXXGGpXa-1125-570.png?getAvatar=avatar",
+        "skinColor": "#FF5000",
+        "actionbarTextColor": "#FFFFFF",
+        "actionBarBackgroundColor": "#2E2927",
+        "actionBarBackgroundImage": "https://gw.alicdn.com/tfs/TB1B6mugNGYBuNjy0FnXXX5lpXa-1125-192.png?getAvatar=avatar",
+        "actionBarBackgroundImageForiPhoneX": "https://gw.alicdn.com/tfs/TB18NNvgMmTBuNjy1XbXXaMrVXa-1125-264.png?getAvatar=avatar",
+        "footerAnimationPic": ""
+      }
+    },
+    "data": {
+      "remindEvents": {},
+      "toolsNotice": {},
+      "userInfoModule": {
+        "nick": "我的淘宝",
+        "vipIcon": "",
+        "userLogo": "drawable://uik_avatar_normal",
+        "userLogoUrl": "http://h5.m.taobao.com/go/myprofile.htm",
+        "subIcon": "https://gw.alicdn.com/tfs/TB1.YrEfbSYBuNjSspiXXXNzpXa-321-63.png",
+        "subUrl": "https://family.alicdn.com/apps/market/famaccmanage/index.html?wh_weex=true&wx_navbar_transparent=true"
+      },
+      "favModule": {
+        "favoriteCnt": {
+          "icon": "",
+          "index": "favoriteCnt",
+          "name": "收藏夹",
+          "num": "--",
+          "scm": "",
+          "url": "https://market.m.taobao.com/apps/market/favorite/index.html?wh_weex=true"
+        },
+        "followCnt": {
+          "icon": "",
+          "name": "关注店铺",
+          "num": "--",
+          "scm": "",
+          "url": "https://market.m.taobao.com/apps/market/wefollow/index.html?wh_weex=true"
+        },
+        "footprintCnt": {
+          "icon": "",
+          "name": "足迹",
+          "num": "--",
+          "scm": "",
+          "url": "https://market.m.taobao.com/apps/market/footprint/index.html?wh_weex=true&data_prefetch=true&api=2"
+        },
+        "cardPackageCnt": {
+          "icon": "",
+          "name": "卡券包",
+          "num": "--",
+          "scm": "",
+          "url": "https://h5.m.taobao.com/app/cpkg/portal.html"
+        }
+      },
+      "benefitModule": {
+        "left": [{
+          "icon": "https://gw.alicdn.com/tfs/TB1uUPQff9TBuNjy0FcXXbeiFXa-212-42.png",
+          "title": "淘气值 --",
+          "url": "https://market.m.taobao.com/apps/market/m-vip/index-tabbar.html?wh_weex=true&wx_navbar_transparent=true"
+        }],
+        "background": null,
+        "right": [{
+          "subTitle": "抢166靓号，享免流量特权",
+          "icon": "https://gw.alicdn.com/tfs/TB1J.UufmCWBuNjy0FhXXb6EVXa-168-105.png",
+          "title": "阿里宝卡0元包邮到家",
+          "url": "https://market.m.taobao.com/apps/market/m-vip/benefit-detail.html?activityId=852530477686&from=index&wh_weex=true"
+        }
+        ],
+        "leftFontColor": "#666666",
+        "rightFontColor": "#666666"
+      },
+      "orderModule": {
+        "deliveryList": []
+      },
+      "toolModule": {
+        "list": [
+          {
+            "appKey": "CardBag",
+            "desc": "",
+            "cat": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tps/TB1YASpPXXXXXc7aXXXXXXXXXXX-96-96.png",
+            "index": "CardBag",
+            "name": "卡券包",
+            "nameColor": "",
+            "scm": "20140623.1.2.7",
+            "tagUrl": "",
+            "tip": "",
+            "url": "https://h5.m.taobao.com/app/cpkg/portal.html?scm=20140623.1.2.7"
+          },
+          {
+            "appKey": "lingquan",
+            "desc": "",
+            "cat": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tfs/TB14uMzX46I8KJjy0FgXXXXzVXa-96-96.png?getAvatar=avatar",
+            "index": "lingquan",
+            "name": "领券中心",
+            "nameColor": "",
+            "scm": "20140623.1.3.159",
+            "tagUrl": "",
+            "tip": "",
+            "url": "https://market.m.taobao.com/apps/coupon/quan/new_index.html?wh_weex=true&wx_navbar_transparent=true&scm=20140623.1.3.159"
+          },
+          {
+            "appKey": "zhuomaomao",
+            "desc": "",
+            "cat": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tfs/TB1fitUgYuWBuNjSszgXXb8jVXa-96-96.png?getAvatar=avatar",
+            "index": "zhuomaomao",
+            "name": "捉猫猫兑奖",
+            "nameColor": "",
+            "scm": "20140623.1.3.283",
+            "tagUrl": "",
+            "tip": "",
+            "url": "https://tb.cn/n/tbcatch?weexjs=https://huodong.m.taobao.com/act/tbcatch.js&UIAnimation=NONE&scm=20140623.1.3.283"
+          },
+          {
+            "appKey": "Suggestion",
+            "desc": "",
+            "cat": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tfs/TB1ZIuoQXXXXXa6XXXXXXXXXXXX-96-96.png?getAvatar=avatar",
+            "index": "Suggestion",
+            "name": "客服小蜜",
+            "nameColor": "",
+            "scm": "20140623.1.2.6",
+            "tagUrl": "",
+            "tip": "",
+            "url": "https://h5.m.taobao.com/alicare/index.html?from=alxm&scm=20140623.1.2.6"
+          },
+          {
+            "appKey": "baoka",
+            "desc": "",
+            "cat": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tfs/TB1qJ1NkwvD8KJjy0FlXXagBFXa-96-96.png",
+            "index": "baoka",
+            "name": "阿里宝卡",
+            "nameColor": "",
+            "scm": "20140623.1.3.243",
+            "tagUrl": "https://gw.alicdn.com/tfs/TB1trMCawmTBuNjy1XbXXaMrVXa-120-60.png?getAvatar=avatar",
+            "tip": "",
+            "url": "http://market.m.taobao.com/app/wt/alibaocard-vue/index/index.html?usertype=new&subSource=04&scm=20140623.1.3.243"
+          },
+          {
+            "appKey": "MyRate",
+            "desc": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tps/TB1RN1QPXXXXXaqXFXXXXXXXXXX-96-96.png",
+            "index": "MyRate",
+            "name": "我的评价",
+            "nameColor": "",
+            "scm": "20140623.1.2.10",
+            "tagUrl": "",
+            "url": "https://h5.m.taobao.com/awp/mtb/myrate.htm?scm=20140623.1.2.10"
+          },
+          {
+            "appKey": "jipiao",
+            "cat": "必备工具-查看全部工具-飞猪旅行",
+            "desc": "",
+            "expiredTime": "1522857540000",
+            "guide": "true",
+            "icon": "https://gw.alicdn.com/tfs/TB1qMeElhrI8KJjy0FpXXb5hVXa-96-96.png",
+            "index": "jipiao",
+            "name": "机票火车票",
+            "nameColor": "",
+            "scm": "20140623.1.3.245",
+            "tagUrl": "",
+            "tip": "-限时推广-",
+            "url": "https://h5.m.taobao.com/trip/traffic-search/search/index.html?defaultBiz=flight&ttid=12mtb0000574&dolphin_tag=stbbgj&scm=20140623.1.3.245"
+          },
+          {
+            "appKey": "more",
+            "cat": "",
+            "desc": "",
+            "guide": "false",
+            "icon": "https://gw.alicdn.com/tfs/TB1_9U2bMMPMeJjy1XbXXcwxVXa-96-96.png",
+            "index": "more",
+            "name": "更多",
+            "nameColor": "",
+            "scm": "20140623.1.3.156",
+            "tagUrl": "",
+            "tip": "",
+            "url": "https://my.m.taobao.com/allapps.htm?scm=20140623.1.3.156"
+          }
+        ]
+      },
+      "config": {
+        "serverTime": "1522808299650"
+      }
+    },
+    "renderList": [
+      {
+        "key": "userInfo_card_moduleConfig"
+      },
+      {
+        "key": "fav_card_moduleConfig"
+      },
+      {
+        "key": "vip_card_moduleConfig"
+      },
+      {
+        "key": "order_card_moduleConfig"
+      },
+      {
+        "key": "tools_card_moduleConfig"
+      }
+    ]
+  }
