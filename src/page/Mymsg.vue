@@ -1,6 +1,6 @@
 <template>
  <div class="mymsg-container">
-      <header>
+  <header>
     <p @click="toSetup">个人资料</p>
   </header>
   <div class="main">
@@ -10,7 +10,7 @@
               <img src="/static/image/ict_uik_avatar_normal.png" alt="">
           </li>
           <li>会员名<span>wine</span></li>
-          <li>淘宝昵称<span @click="toChangename">wine</span></li>
+          <li @click="toChangename">淘宝昵称<span>wine</span></li>
       </ul>
   </div>
  </div>

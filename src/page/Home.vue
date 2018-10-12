@@ -125,6 +125,8 @@ export default {
     text-align: center;
     z-index: 1000;
     .search {
+      display: inline-block;
+      width: 60%;
       img {
         display: inline-block;
         height: 2rem;
@@ -132,7 +134,7 @@ export default {
       }
       p {
         display: inline-block;
-        width: 60%;
+        width: 80%;
         border: 0;
         border-bottom: 1px solid #fff;
         background-color: orangered;

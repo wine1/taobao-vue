@@ -8,7 +8,7 @@
           <div class="swiper-pagination"  slot="pagination"></div>
         </swiper> -->
         <img :src="good.image">
-        <p class="back"></p>
+        <p class="back" @click="back"></p>
         <p class="to-cart" @click="toCart"></p>
 
      </header>
@@ -69,7 +69,11 @@ export default {
     },
     toCart() {
         this.$router.push('/cart')
+    },
+    back(){
+      window.history.go(-1)
     }
+
   }
 };
 </script>
@@ -89,6 +93,16 @@ export default {
         height: 3rem;
         background: url(/static/image/ic_flow_back_cart.png) no-repeat;
         background-size: contain;
+    }
+    .back {
+        position: absolute;
+        top: 1.7rem;
+        left: 1rem;
+        width: 2rem;
+        height: 2rem;
+        background: url(/static/image/back45.png) no-repeat;
+        background-size: contain;
+    
     }
   }
   .main {
