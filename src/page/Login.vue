@@ -7,21 +7,20 @@
         <img src="/static/image/qrcode_icon.png" alt="">
         <form v-show="account" class="account">
             <div class="wrap">
-                <input type="text" v-model="username" placeholder="请输入淘宝账户">
+                <input @change="disabled" type="text" v-model="username" placeholder="请输入淘宝账户">
             </div>
             <div class="wrap">
               <p @click="changeEye" :class="{see:canSee}"></p>
-                <input :type="type" v-model="password" placeholder="请输入密码">
+                <input @change="disabled" :type="type" v-model="password" placeholder="请输入密码">
                 <button>忘记密码</button>
             </div>
-            <!-- <button class="login">登录</button> -->
         </form>
         <form v-show="tel" class="tel">
             <div class="wrap">
-               <p>+86</p><input type="text" v-model="number" placeholder="请输入电话号码">
+               <p>+86</p><input type="tel" v-model="number" maxlength="11"  placeholder="请输入电话号码">
             </div>
             <div class="wrap">
-                <input type="text" v-model="validate" placeholder="请输入验证码">
+                <input @change="disabled" type="tel" maxlength="6" v-model="validate" placeholder="请输入验证码">
                 <button>获取验证码</button>
             </div>
         </form>
@@ -31,7 +30,7 @@
             <router-link to="/register" class="register">注册</router-link>
         </div>
     </div>
-    <p class="notice" :class="{fadein:fadein}" v-show="show">{{noticeMsg}}</p>
+    <p class="notice" v-show="show">{{noticeMsg}}</p>
  </div>
 </template>
 
@@ -50,8 +49,7 @@ export default {
       type: "password",
       noticeMsg: "",
       show: false,
-      disable: true,
-      fadein: false
+      disable: true
     };
   },
 
@@ -62,6 +60,14 @@ export default {
   },
 
   methods: {
+    // 切换登录条的点击状态
+    disabled() {
+      if ((this.username && this.password) || (this.number && this.validate)) {
+        this.disable = false;
+      } else {
+        this.disable = true;
+      }
+    },
     //切换密码可见状态
     changeEye() {
       this.canSee = !this.canSee;
@@ -87,23 +93,44 @@ export default {
     login() {
       let username = this.username;
       let password = this.password;
+      let number = this.number;
+      let validate = this.validate;
       // 前端验证
-      if (username != "" && password != "") {
-        // this.disable = false;
+      if (this.tel && !number.match(/[1][0-9]{10}/)) {
+        this.noticeMsg = "请输入正确的电话号码";
+        this.show = true;
+        setTimeout(() => {
+          this.show = false;
+        }, 2000);
+      } else if (this.tel && !validate.match(/[0-9]{6}/)) {
+        this.noticeMsg = "请输入正确的验证码";
+        this.show = true;
+        setTimeout(() => {
+          this.show = false;
+        }, 2000);
+      } else if (
+        (username != "" && password != "") ||
+        (number.length == 11 && validate.length == 6)
+      ) {
         //获取user信息
         this.$http
-          .post("/api/user")
+          .post("/api/users")
           .then(res => {
             let data = res.data.users;
-            console.log(data);
             res.login = true;
 
             if (res.login == true) {
-              this.noticeMsg = "登陆成功";
+              this.noticeMsg = "登录成功";
               this.show = true;
               setTimeout(() => {
                 this.show = false;
-
+                this.$router.push("/");
+              }, 2000);
+            } else {
+              this.noticeMsg = "请输入正确的账号和密码";
+              this.show = true;
+              setTimeout(() => {
+                this.show = false;
                 this.$router.push("/");
               }, 2000);
             }
@@ -112,13 +139,11 @@ export default {
             console.log("error");
             this.noticeMsg = "服务器错误";
             this.show = true;
-            this.fadein = true;
             setTimeout(() => {
               this.show = false;
             }, 2000);
           });
       } else {
-        this.disable = true;
       }
     }
   },
@@ -229,10 +254,6 @@ export default {
     transform: translateY(-50%);
     transform: translateX(-50%);
     opacity: 1;
-    &.fadein {
-      opacity: 0;
-      transition: all 1000ms;
-    }
   }
   .login {
     width: 100%;
