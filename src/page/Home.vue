@@ -77,7 +77,7 @@ export default {
     return {
       obj: {
         show: false,
-        popMsg: "hahah"
+        popMsg: "hahaha"
       },
       swiper: [],
       swiperOption: {
@@ -90,10 +90,6 @@ export default {
     };
   },
   created() {},
-
-  computed() {
-    
-  },
 
   mounted() {
     this.getPic();

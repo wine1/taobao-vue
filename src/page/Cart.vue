@@ -11,25 +11,25 @@
         <span class="ri">管理</span></p>
         <p class="total">共有<span>33</span>件宝贝</p>
       </div>
-      <div class="shop">
-        <div class="shopTit">
-          <i :class="{check:isCheck}" @click="checked" class="checkbox"></i>
-          <p>随便一家店</p>
-        </div>
-        <div class="goods" v-for="item in items" :key="item.id">
-          <i class="checkbox" :class="{check:item.isCheck}" @click="checked(item)"></i>
-          <img :src="item.image" alt="">
-          <div class="details">
-            <p>{{item.name}}</p>
-            <div class="wrap">
-              <p class="count"><span>-</span>{{item.count}}<span>+</span></p>
-              <p class="price">￥{{item.price}}</p>
+      <div class="list">
+        <div class="shop" v-for="shop in shops">
+          <div class="shopTit">
+            <i :class="{check:isCheck}" @click="checked" class="checkbox"></i>
+            <p>{{shop.shopname}}</p>
+          </div>
+          <div class="goods" v-for="good in shop.good" :key="good.id">
+            <i class="checkbox" :class="{check:good.isCheck}" @click="checked(good)"></i>
+            <img :src="good.image" alt="">
+            <div class="details">
+              <p>{{good.goodname}}</p>
+              <div class="wrap">
+                <p class="count"><span>-</span>{{good.count}}<span>+</span></p>
+                <p class="price">￥{{good.price}}</p>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
 
     <footer>
@@ -41,41 +41,45 @@
         <p class="btn">结算(<span>0</span>)</p>
       </div>
     </footer>
+
+  <div class="pop-count">
+    balabala
+  </div>
  </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "cart",
   data() {
     return {
-      items: [],
+      shops: [],
       isCheck: false
     };
   },
   components: {},
+  computed: {
+    ...mapGetters(["shopList"]),
+    ...mapGetters(["cartProducts"])
+  },
   mounted() {
     this.getJson();
   },
   methods: {
     //从json文件获取数据
     getJson() {
-      this.$http.get("/api/index").then(res => {
-        let data = res.data.data;
-        data.goods.forEach(item => {
-          item.isCheck = false;
-        });
-        this.items = data.goods;
+      this.$http.get("/api/shops").then(res => {
+        let shops = res.data.shop;
+        this.shops = shops;
+        console.log(shops);
+        let goods = shops.good;
+        console.log(goods);
       });
     },
     //选择
     checked(item) {
-      // if(this.isCheck === true) {
-      //   this.isCheck = false;
-      // }else {
-      //   this.isCheck = true;
-      // }
       item.isCheck = !item.isCheck;
     }
   },
@@ -87,8 +91,8 @@ export default {
 .cartContainer {
   .checkbox {
     display: inline-block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border: 1px solid #ccc;
     border-radius: 50%;
     vertical-align: middle;
@@ -119,7 +123,7 @@ export default {
 
   .main {
     text-align: left;
-    margin-bottom: 7rem;
+    margin-bottom: 9rem;
     padding-bottom: 1rem;
     background-color: #efefef;
     .top {
@@ -153,66 +157,71 @@ export default {
         color: #fff;
       }
     }
-    .shop {
-      position: relative;
-      margin: 0 1rem;
+    .list {
       margin-top: -4rem;
-      background: #fff;
-      border-radius: 6px;
-      padding: 0.6rem;
-      .shopTit {
-        p {
-          display: inline-block;
-          vertical-align: middle;
+      .shop {
+        position: relative;
+        margin: 1rem;
+        background: #fff;
+        border-radius: 6px;
+        padding: 0.6rem;
+        .shopTit {
+          p {
+            display: inline-block;
+            vertical-align: middle;
+          }
         }
-      }
-      .goods {
-        margin: 1rem 0;
-        input {
-          float: left;
-        }
-        img {
-          display: inline-block;
-          width: 5rem;
-          height: 4rem;
-          margin: 0 0.5rem;
-          vertical-align: middle;
-        }
-        .details {
-          width: 55%;
-          display: inline-block;
-          vertical-align: middle;
-          .wrap {
-            margin: 0.5rem;
-            overflow: hidden;
-            p {
-              height: 1.3rem;
-              line-height: 1.5rem;
-              vertical-align: middle;
-              &.count {
-                float: right;
-                border: 1px solid #ccc;
-                span {
-                  display: inline-block;
-                  padding: 0 0.3rem;
-                  &:first-of-type {
-                    margin-right: 0.7rem;
-                    border-right: 1px solid #ccc;
-                  }
-                  &:last-of-type {
-                    margin-left: 0.7rem;
-                    border-left: 1px solid #ccc;
+        .goods {
+          margin: 1rem 0;
+          input {
+            float: left;
+          }
+          img {
+            display: inline-block;
+            width: 6rem;
+            height: 5rem;
+            margin: 0 0.5rem;
+            vertical-align: top;
+          }
+          .details {
+            width: 55%;
+            display: inline-block;
+            vertical-align: middle;
+            .wrap {
+              margin: 0.5rem;
+              overflow: hidden;
+              p {
+                height: 1.8rem;
+                line-height: 2rem;
+                vertical-align: middle;
+                &.count {
+                  float: right;
+                  width: 6rem;
+                  border: 1px solid #ccc;
+                  text-align: center;
+                  span {
+                    padding: 0 0.5rem;
+                    &:first-of-type {
+                      float: left;
+                      margin-right: 0.7rem;
+                      border-right: 1px solid #ccc;
+                    }
+                    &:last-of-type {
+                      float: right;
+                      margin-left: 0.7rem;
+                      border-left: 1px solid #ccc;
+                    }
                   }
                 }
-              }
-              &.price {
-                float: left;
-                color: orangered;
+                &.price {
+                  float: left;
+                  color: orangered;
+                }
               }
             }
-          }
-          p {
-            vertical-align: middle;
+            p {
+              vertical-align: middle;
+            }
           }
         }
       }
@@ -233,6 +242,10 @@ export default {
     .footer-left {
       float: left;
       margin-left: 0.5rem;
+      span {
+        margin-left: 0.3rem;
+        vertical-align: middle;
+      }
     }
     .footer-right {
       float: right;
@@ -252,6 +265,25 @@ export default {
           }
         }
       }
+    }
+  }
+  .pop-count {
+    position: absolute;
+    background-color: #000;
+    padding: 2rem;
+    top: 50%;
+    left: 50%;
+    animation: pop .5s linear;
+  }
+  @keyframes pop {
+    0% {
+      transform:scale(0.5);
+    }
+    20% {
+      transform:scale(1.2);
+    }
+    100% {
+      transform:scale(1);
     }
   }
 }

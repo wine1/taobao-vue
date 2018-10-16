@@ -1,37 +1,63 @@
 <template>
  <div class="search-container">
     <header>
-        <a class="back"></a>
+        <a class="back" @click="back"></a>
         <div class="wrap-search">
-            <input type="text" autofocus="true" placeholder="小包包">
+            <input type="text" autofocus="true" v-model="searchWords" placeholder="小包包" >
         </div>
-        <a class="search-btn">搜索</a>
+        <a @click="search" class="search-btn">搜索</a>
     </header>
+    <div class="main">
+      <ul class="history-records">
+        <li v-for="item in historys">{{item}}</li>
+        <li @click="clearHistory">清除历史记录</li>
+      </ul>
+    </div>
  </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      historys: [],
+      searchWords: ""
+    };
   },
 
-  components: {}
+  components: {},
 
   //  computed: {},
 
   //  mounted: {},
 
-  //  methods: {}
+  methods: {
+    search() {
+      let words = this.searchWords;
+      if (words) {
+        this.historys = this.historys.concat(words);
+        this.historys.reverse();
+      }
+      this.searchWords = "";
+      // search真正的逻辑部分
+      // realSearch();
+    },
+    clearHistory() {
+      this.historys = [];
+    },
+    back() {
+      window.history.go(-1);
+    }
+  }
 };
 </script>
 <style lang='scss' scoped>
 .search-container {
   height: 100%;
-  padding: 1rem;
   text-align: left;
   background-color: #f1f1f1;
   header {
+    padding: 1rem;
     overflow: hidden;
     .back {
       float: left;
@@ -42,7 +68,7 @@ export default {
     }
     .wrap-search {
       display: inline-block;
-      width: 60%;
+      width: 58%;
       padding: 0.5rem 1rem;
       margin: 0 5%;
       background-image: url(/static/image/cam.png);
@@ -53,15 +79,34 @@ export default {
       border-radius: 2rem;
       input {
         border: 0;
+        width: 80%;
+        text-shadow: 0px 0px 0px #000;
+        -webkit-text-fill-color: transparent;
+        caret-color:orangered;
       }
     }
     .search-btn {
       display: inline-block;
-      padding: .4rem 1rem;
+      padding: 0.4rem 1rem;
       color: #fff;
-      
       background: linear-gradient(left, orange, orangered);
       border-radius: 2rem;
+    }
+  }
+  .main {
+    .history-records {
+      margin: 1rem;
+      border-radius: 12px;
+      background-color: #fff;
+      text-align: center;
+      li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+        &:last-of-type {
+          border: 0;
+          color: #666;
+        }
+      }
     }
   }
 }

@@ -49,7 +49,7 @@ export default {
       type: "password",
       noticeMsg: "",
       show: false,
-      disable: true
+      // disable: true
     };
   },
 
@@ -58,15 +58,24 @@ export default {
   mounted() {
     this.changeEye();
   },
+  computed:{
+    disable() {
+      if (this.username && this.password) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
 
   methods: {
     // 切换登录条的点击状态
     disabled() {
-      if ((this.username && this.password) || (this.number && this.validate)) {
-        this.disable = false;
-      } else {
-        this.disable = true;
-      }
+      // if ((this.username && this.password) || (this.number && this.validate)) {
+      //   this.disable = false;
+      // } else {
+      //   this.disable = true;
+      // }
     },
     //切换密码可见状态
     changeEye() {

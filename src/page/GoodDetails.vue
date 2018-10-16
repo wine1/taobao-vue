@@ -28,8 +28,8 @@
          <ul>
              <li class="shop" @click="toShop">店铺</li>
              <li class="service">客服</li>
-             <li class="save" :class="{saved:isSaved}" @click="save">收藏</li>
-             <li class="add-cart"><p>加入购物车</p></li>
+             <li class="save" :class="{saved:isSaved}" @click="save">{{saveWord}}</li>
+             <li class="add-cart" @click='addToCart(shop)'><p>加入购物车</p></li>
              <li class="buy-it"><p>立即购买</p></li>
          </ul>
      </footer>
@@ -37,11 +37,16 @@
 </template>
 
 <script>
+// import {mapGetters, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
+
+import goodsList from "@/components/GoodsList";
 export default {
   data() {
     return {
       good: {},
-      isSaved: false
+      isSaved: false,
+      saveWord: "收藏"
     };
   },
 
@@ -54,6 +59,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["addToCart"]),
+
     getGood() {
       this.$http.get("api/index").then(res => {
         let data = res.data.data;
@@ -63,17 +70,21 @@ export default {
     },
     save() {
       this.isSaved = !this.isSaved;
+      if (this.isSaved) {
+        this.saveWord = "已收藏";
+      } else {
+        this.saveWord = "收藏";
+      }
     },
-    toShop(){
-        this.$router.push('/shop');
+    toShop() {
+      this.$router.push("/shop");
     },
     toCart() {
-        this.$router.push('/cart')
+      this.$router.push("/cart");
     },
-    back(){
-      window.history.go(-1)
+    back() {
+      window.history.go(-1);
     }
-
   }
 };
 </script>
@@ -86,23 +97,22 @@ export default {
       height: 20rem;
     }
     .to-cart {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        width: 3rem;
-        height: 3rem;
-        background: url(/static/image/ic_flow_back_cart.png) no-repeat;
-        background-size: contain;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 3rem;
+      height: 3rem;
+      background: url(/static/image/ic_flow_back_cart.png) no-repeat;
+      background-size: contain;
     }
     .back {
-        position: absolute;
-        top: 1.7rem;
-        left: 1rem;
-        width: 2rem;
-        height: 2rem;
-        background: url(/static/image/back45.png) no-repeat;
-        background-size: contain;
-    
+      position: absolute;
+      top: 1.7rem;
+      left: 1rem;
+      width: 2rem;
+      height: 2rem;
+      background: url(/static/image/back45.png) no-repeat;
+      background-size: contain;
     }
   }
   .main {
@@ -138,7 +148,7 @@ export default {
       display: flex;
       position: fixed;
       bottom: 0;
-      padding: .3rem 1rem .3rem 0 ;
+      padding: 0.3rem 1rem 0.3rem 0;
       border-top: 1px solid #ddd;
       width: 100%;
       z-index: 1000;
@@ -149,7 +159,7 @@ export default {
         &.add-cart,
         &.buy-it {
           flex: 2;
-          padding-top: .2rem;
+          padding-top: 0.2rem;
           p {
             height: 4rem;
             width: 90%;
@@ -166,7 +176,7 @@ export default {
         }
         &.buy-it {
           p {
-              margin-left: -10%;
+            margin-left: -10%;
             background-color: orangered;
             border-radius: 0 2rem 2rem 0;
           }

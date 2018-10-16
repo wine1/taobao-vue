@@ -1,6 +1,7 @@
 <template>
  <div class="shop-container">
      <header>
+        <p class="back" @click="back"></p>
          <p class="shop-name">白日梦</p>
          <ul>
              <li>
@@ -10,16 +11,24 @@
              <li>全部</li>
          </ul>
      </header>
+
+     <div class="main">
+       <goods-list></goods-list>
+     </div>
  </div>
 </template>
 
 <script>
+
+import goodsList from "@/components/GoodsList";
 export default {
   data() {
     return {};
   },
 
-  //  components: {},
+   components: {
+     goodsList,
+   },
 
   //  computed: {},
 
@@ -28,6 +37,9 @@ export default {
   methods: {
     toSearch() {
       this.$router.push("/search");
+    },
+    back(){
+      window.history.go(-1);
     }
   }
 };
@@ -38,6 +50,13 @@ export default {
   header {
     background: #eee;
     padding: 1rem;
+    .back {
+      position: relative;
+      width: 2rem;
+      height: 2rem;
+      background: url(/static/image/back45.png) no-repeat;
+      background-size: contain;
+    }
     .shop-name {
       margin-bottom: 1rem;
       font-size: 1.8rem;
@@ -58,6 +77,10 @@ export default {
         }
       }
     }
+  }
+  .main {
+    padding-top: 1rem;
+    background-color: #fff;
   }
 }
 </style>

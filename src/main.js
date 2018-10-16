@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// 在入口文件引入vuexstore,此处的index.js可以省略
+import vuexStore from './store/index.js'
+import 'babel-polyfill'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('swiper/dist/css/swiper.css')
@@ -22,6 +25,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store: vuexStore, //在实例中添加vuexstore
   components: { App },
   template: '<App/>'
 })
