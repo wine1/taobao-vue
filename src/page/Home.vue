@@ -49,7 +49,7 @@
   <!-- 商品列表 -->
   <goods-list></goods-list>
  <!-- 未登录时提示登录的条 -->
-  <div class="login-bar" v-if="notLogin">
+  <div class="login-bar" v-if="!username">
     <p>登录手机淘宝 打开精彩世界</p>
     <router-link to="/login">立即登录</router-link>
   </div>
@@ -64,7 +64,7 @@
 import Pop from "@/components/Pop";
 import goodsList from "@/components/GoodsList";
 import { swiper, swiperSlider } from "vue-awesome-swiper";
-
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "home",
   components: {
@@ -77,7 +77,7 @@ export default {
     return {
       obj: {
         show: false,
-        popMsg: "hahaha"
+        popMsg: "hahaha",
       },
       swiper: [],
       swiperOption: {
@@ -85,12 +85,13 @@ export default {
         speed: 1000,
         direction: "horizontal",
         pagination: { el: ".swiper-pagination", clickable: true }
-      },
-      notLogin: true
+      }
     };
   },
   created() {},
-
+  computed: {
+    ...mapGetters(["username"])
+  },
   mounted() {
     this.getPic();
   },
@@ -103,7 +104,7 @@ export default {
       });
     },
     toSearch() {
-      this.$router.push('/search');
+      this.$router.push("/search");
     }
   }
 };

@@ -29,7 +29,7 @@
              <li class="shop" @click="toShop">店铺</li>
              <li class="service">客服</li>
              <li class="save" :class="{saved:isSaved}" @click="save">{{saveWord}}</li>
-             <li class="add-cart" @click='addToCart(shop)'><p>加入购物车</p></li>
+             <li class="add-cart"><p>加入购物车</p></li>
              <li class="buy-it"><p>立即购买</p></li>
          </ul>
      </footer>
@@ -38,7 +38,7 @@
 
 <script>
 // import {mapGetters, mapGetters } from 'vuex'
-import { mapGetters, mapActions } from "vuex";
+// import { mapGetters, mapActions } from "vuex";
 
 import goodsList from "@/components/GoodsList";
 export default {
@@ -59,7 +59,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["addToCart"]),
+    // ...mapActions(["addToCart"]),
 
     getGood() {
       this.$http.get("api/index").then(res => {

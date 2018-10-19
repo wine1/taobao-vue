@@ -7,11 +7,11 @@
         <img src="/static/image/qrcode_icon.png" alt="">
         <form v-show="account" class="account">
             <div class="wrap">
-                <input @change="disabled" type="text" v-model="username" placeholder="请输入淘宝账户">
+                <input type="text" v-model="username" placeholder="请输入淘宝账户">
             </div>
             <div class="wrap">
               <p @click="changeEye" :class="{see:canSee}"></p>
-                <input @change="disabled" :type="type" v-model="password" placeholder="请输入密码">
+                <input :type="type" v-model="password" placeholder="请输入密码">
                 <button>忘记密码</button>
             </div>
         </form>
@@ -20,7 +20,7 @@
                <p>+86</p><input type="tel" v-model="number" maxlength="11"  placeholder="请输入电话号码">
             </div>
             <div class="wrap">
-                <input @change="disabled" type="tel" maxlength="6" v-model="validate" placeholder="请输入验证码">
+                <input type="tel" maxlength="6" v-model="validate" placeholder="请输入验证码">
                 <button>获取验证码</button>
             </div>
         </form>
@@ -30,17 +30,20 @@
             <router-link to="/register" class="register">注册</router-link>
         </div>
     </div>
-    <p class="notice" v-show="show">{{noticeMsg}}</p>
+    <transition name="fade">
+      <p class="notice" v-show="show">{{noticeMsg}}</p>
+    </transition>
  </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       account: true,
       tel: false,
-      loginMsg: "账号密码登录",
+      loginMsg: "短线验证码登录",
       username: "",
       password: "",
       number: "",
@@ -48,8 +51,7 @@ export default {
       canSee: false,
       type: "password",
       noticeMsg: "",
-      show: false,
-      // disable: true
+      show: false
     };
   },
 
@@ -58,25 +60,17 @@ export default {
   mounted() {
     this.changeEye();
   },
-  computed:{
+  computed: {
     disable() {
       if (this.username && this.password) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
     }
   },
 
   methods: {
-    // 切换登录条的点击状态
-    disabled() {
-      // if ((this.username && this.password) || (this.number && this.validate)) {
-      //   this.disable = false;
-      // } else {
-      //   this.disable = true;
-      // }
-    },
     //切换密码可见状态
     changeEye() {
       this.canSee = !this.canSee;
@@ -91,11 +85,11 @@ export default {
       if (this.account === true) {
         this.account = false;
         this.tel = true;
-        this.loginMsg = "短线验证码登录";
+        this.loginMsg = "账号密码登录";
       } else {
         this.account = true;
         this.tel = false;
-        this.loginMsg = "账号密码登录";
+        this.loginMsg = "短线验证码登录";
       }
     },
     //登录验证
@@ -123,12 +117,15 @@ export default {
       ) {
         //获取user信息
         this.$http
-          .post("/api/users")
+          .post(this.resource + "/api/user/login", {
+            username: this.username,
+            password: this.password
+          })
           .then(res => {
-            let data = res.data.users;
-            res.login = true;
-
-            if (res.login == true) {
+            // 这里的登录验证并不是真实的登录验证
+            if (res.status == 200) {
+              // vuex的应用，获取username
+              this.getUser(this.username);
               this.noticeMsg = "登录成功";
               this.show = true;
               setTimeout(() => {
@@ -144,8 +141,8 @@ export default {
               }, 2000);
             }
           })
-          .catch(() => {
-            console.log("error");
+          .catch(error => {
+            console.log(error);
             this.noticeMsg = "服务器错误";
             this.show = true;
             setTimeout(() => {
@@ -154,7 +151,8 @@ export default {
           });
       } else {
       }
-    }
+    },
+    ...mapActions(["getUser"])
   },
   watch: {}
 };
@@ -275,5 +273,7 @@ export default {
       opacity: 0.5;
     }
   }
+
+
 }
 </style>

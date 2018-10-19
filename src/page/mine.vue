@@ -3,7 +3,7 @@
     <header>
       <div class="top">
         <img src="/static/image/ict_uik_avatar_normal.png" alt="">
-        <p class="userName">wine</p>
+        <p class="userName">{{username}}</p>
       </div>
       <p class="setUp" @click="toSetup"></p>
     </header>
@@ -22,11 +22,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+    };
   },
   components: {},
+  computed: {
+    ...mapGetters(["username"])
+  },
   methods: {
     toSetup() {
       this.$router.push("/setup");
@@ -78,7 +83,7 @@ export default {
   .main {
     position: relative;
     margin: 9rem 1rem 0 1rem;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     text-align: left;
     background: #fff;
     border-radius: 5px;

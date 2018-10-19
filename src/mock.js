@@ -6,7 +6,6 @@ Mock.mock('/api/users', {
       'username': '@cname()',
       'password': '@string("number",6)',
       'address': '@province()@city()@county()',
-      'islogin|1-2': false,
       'image': Mock.Random.image('200x100', '#4A7BF7', 'Hello'),
       'telephone': /[1][0-9]{10}/
     }]
@@ -28,7 +27,7 @@ Mock.mock('/api/users', {
         'id|': '@id()',
         'goodname': '@name()',
         'image': Mock.Random.image('200x100', '#ccc', '#FFF', 'png', 'hahaha'),
-        'price': 500,
+        'price|100-200': 1,
         'count|1-10': 1,
       }]
     }]

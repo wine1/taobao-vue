@@ -1,24 +1,26 @@
 <template>
  <div class="cartContainer">
-    <header>
-      <p>购物车(33)</p>
+   <transition name='fade'>
+    <header v-show="headerShow">
+      <p>购物车{{allCount}}</p>
       <p class="manage">管理</p>
     </header>
+   </transition>
 
     <div class="main">
       <div class="top">
         <p><span class="le">购物车</span>
         <span class="ri">管理</span></p>
-        <p class="total">共有<span>33</span>件宝贝</p>
+        <p class="total">共有{{allCount}}件宝贝</p>
       </div>
       <div class="list">
         <div class="shop" v-for="shop in shops">
           <div class="shopTit">
-            <i :class="{check:isCheck}" @click="checked" class="checkbox"></i>
+            <i :class="{check:isCheck}" class="checkbox"></i>
             <p>{{shop.shopname}}</p>
           </div>
           <div class="goods" v-for="good in shop.good" :key="good.id">
-            <i class="checkbox" :class="{check:good.isCheck}" @click="checked(good)"></i>
+            <i class="checkbox" :class="{check:good.isCheck}" ></i>
             <img :src="good.image" alt="">
             <div class="details">
               <p>{{good.goodname}}</p>
@@ -34,7 +36,7 @@
 
     <footer>
       <p class="footer-left">
-        <i :class="{check:isCheck}" @click="checked" class="checkbox"></i><span>全选</span>
+        <i :class="{check:isCheck}" class="checkbox"></i><span>全选</span>
       </p>
       <div class="footer-right">
         <p>合计：<span>￥0</span></p>
@@ -42,7 +44,7 @@
       </div>
     </footer>
 
-  <div class="pop-count">
+  <div class="pop-count" v-show="popShow">
     balabala
   </div>
  </div>
@@ -55,17 +57,26 @@ export default {
   name: "cart",
   data() {
     return {
+      allCount: '0',
+      headerShow: false,
       shops: [],
-      isCheck: false
+      isCheck: false,
+      popShow: false,
+      isCheckAll: false,
+      isCheck: false,
     };
   },
   components: {},
   computed: {
-    ...mapGetters(["shopList"]),
-    ...mapGetters(["cartProducts"])
+    // ...mapGetters(["shopList"]),
+    // ...mapGetters(["cartProducts"])
+    allCount() {
+
+    }
   },
   mounted() {
     this.getJson();
+    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
     //从json文件获取数据
@@ -74,13 +85,24 @@ export default {
         let shops = res.data.shop;
         this.shops = shops;
         console.log(shops);
-        let goods = shops.good;
-        console.log(goods);
       });
     },
     //选择
-    checked(item) {
-      item.isCheck = !item.isCheck;
+    // checked(item) {
+    //   item.isCheck = !item.isCheck;
+    // }
+    // 滚动事件
+    handleScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      console.log(scrollTop);
+      if (scrollTop > 100) {
+        this.headerShow = true;
+      } else {
+        this.headerShow = false;
+      }
     }
   },
   watch: {}
@@ -103,17 +125,17 @@ export default {
     }
   }
   header {
-    display: none;
     position: fixed;
     top: 0;
-    height: 3rem;
+    height: 4.5rem;
     width: 100%;
-    line-height: 3rem;
+    line-height: 4.5rem;
     z-index: 999;
     background: linear-gradient(left, #ff7d08, orangered);
     p {
       display: inline-block;
       color: #fff;
+      font-size: 1.8rem;
       &.manage {
         position: absolute;
         right: 1rem;
@@ -271,19 +293,20 @@ export default {
     position: absolute;
     background-color: #000;
     padding: 2rem;
+
     top: 50%;
     left: 50%;
-    animation: pop .5s linear;
+    animation: pop 0.5s linear;
   }
   @keyframes pop {
     0% {
-      transform:scale(0.5);
+      transform: scale(0.5);
     }
     20% {
-      transform:scale(1.2);
+      transform: scale(1.2);
     }
     100% {
-      transform:scale(1);
+      transform: scale(1);
     }
   }
 }
