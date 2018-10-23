@@ -125,7 +125,7 @@ export default {
             // 这里的登录验证并不是真实的登录验证
             if (res.status == 200) {
               // vuex的应用，获取username
-              this.getUser(this.username);
+              this.getUser(res.data.username);
               this.noticeMsg = "登录成功";
               this.show = true;
               setTimeout(() => {

@@ -5,16 +5,16 @@
         <p class="help">帮助</p>
      </header>
      <div class="main">
-         <p class="region">国家地区<span>+86</span></p>
+         <!-- <p class="region">国家地区<span>+86</span></p> -->
          <form>
              <div class="wrap">
-                <p>+86</p><input type="text" placeholder="请输入手机号码">
+                <input type="text" v-model="username" placeholder="请输入用户名">
              </div>
              <div class="wrap">
-                 <input type="text" placeholder="请输入验证码">
-                 <a>获取验证码</a>
+                 <input type="text" v-model="password" placeholder="请输入密码">
+                 <!-- <a>获取验证码</a> -->
              </div>
-             <a class="register">同意协议并注册</a>
+             <a class="register" @click="register">同意协议并注册</a>
          </form>
          <p>已阅读并同意以下协议<span>《淘宝服务协议》</span><span>《隐私权政策》</span><span>《支付宝服务协议》</span></p>
      </div>
@@ -24,10 +24,25 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      username: "",
+      password: ""
+    };
   },
 
-  methods: {}
+  methods: {
+    register() {
+      this.$http
+        .post(this.resource + "/api/user/register", {
+          username: this.username,
+          passowrd: this.password
+        })
+        .then(res => {
+          console.log(success);
+        })
+        .catch(err => {});
+    }
+  }
 };
 </script>
 <style lang='scss' scoped>
@@ -76,11 +91,11 @@ export default {
         p {
           float: left;
           margin: 0 0 0 -3rem;
-          padding-right: .6rem;
+          padding-right: 0.6rem;
           background: url("/static/image/new_logistic_detail_map_infowindow_arrow.png")
             no-repeat;
           background-position: right center;
-          background-size: .5rem 1rem;
+          background-size: 0.5rem 1rem;
           color: #666;
         }
         input {
@@ -111,7 +126,7 @@ export default {
 
     p {
       margin-top: 1rem;
-      font-size:1rem;
+      font-size: 1rem;
       color: #999;
       span {
         color: #333;

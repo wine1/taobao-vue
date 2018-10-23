@@ -25,12 +25,12 @@ CREATE TABLE `goods` (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
+  `id` int(6) NOT NULL,
+  `username` char(255) NOT NULL,
+  `password` char(255) NOT NULL,
   `telephone` char(255) DEFAULT NULL,
   `image` char(255) DEFAULT NULL,
   `address` char(255) DEFAULT NULL,
-  `password` char(255) NOT NULL,
-  `username` char(255) NOT NULL,
-  `id` int(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
