@@ -2,7 +2,7 @@
  <div class="goods-container">
     <ul class="goods-list">
         <router-link :to="{path: 'gooddetails', query:{id: good.id}}" v-for="good in goods" :key="good.id" tag="li">
-            <img :src="good.image" alt="">
+            <img :src="good.pic" alt="">
             <div class="msg">
             <p class="name">{{good.name}}</p>
                 <p class="price">￥{{good.price}}</p>
@@ -29,16 +29,18 @@ export default {
 
   //  computed: {},
 
-  mounted() {
+  created() {
     this.getGoods();
   },
+  mounted() {},
 
   methods: {
+    // 获取商品列表
     getGoods() {
-      this.$http.get("/api/index").then(res => {
-        let data = res.data.data;
+      this.$http.get(this.resource + "/api/goodslist/get").then(res => {
+        let data = res.data;
+        this.goods = data;
         console.log(data);
-        this.goods = data.goods;
       });
     }
   }

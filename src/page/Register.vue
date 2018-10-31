@@ -35,10 +35,14 @@ export default {
       this.$http
         .post(this.resource + "/api/user/register", {
           username: this.username,
-          passowrd: this.password
+          password: this.password
         })
         .then(res => {
-          console.log(success);
+          if (res.status === 200) {
+            console.log("success");
+            this.username = "";
+            this.password = "";
+          }
         })
         .catch(err => {});
     }

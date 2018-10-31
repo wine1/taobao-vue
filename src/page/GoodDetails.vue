@@ -7,7 +7,7 @@
           </swiper-slide>
           <div class="swiper-pagination"  slot="pagination"></div>
         </swiper> -->
-        <img :src="good.image">
+        <img :src="good.pic">
         <p class="back" @click="back"></p>
         <p class="to-cart" @click="toCart"></p>
 
@@ -62,11 +62,16 @@ export default {
     // ...mapActions(["addToCart"]),
 
     getGood() {
-      this.$http.get("api/index").then(res => {
-        let data = res.data.data;
-        console.log(data);
-        this.good = data.goods[this.$route.query.id];
-      });
+      console.log(this.$route.query.id )
+      this.$http
+        .get(this.resource + "/api/goodslist/details", {
+          params: { goodsid: this.$route.query.id }
+        })
+        .then(res => {
+          let data = res.data[0];
+          this.good = data;
+          console.log(data)
+        });
     },
     save() {
       this.isSaved = !this.isSaved;

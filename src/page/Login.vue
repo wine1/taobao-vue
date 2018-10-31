@@ -55,6 +55,7 @@ export default {
     };
   },
 
+
   components: {},
 
   mounted() {
@@ -117,15 +118,17 @@ export default {
       ) {
         //获取user信息
         this.$http
-          .post(this.resource + "/api/user/login", {
-            username: this.username,
-            password: this.password
+          .get(this.resource + "/api/user/login", {
+            params: { username: this.username, password: this.password }
           })
           .then(res => {
-            // 这里的登录验证并不是真实的登录验证
             if (res.status == 200) {
-              // vuex的应用，获取username
-              this.getUser(res.data.username);
+              // vuex的应用，获取username，两种方式均可
+              this.$store.dispatch('getUser', res.data.username)
+              // this.getUser(res.data.username);
+              // 存储登录信息
+              // window.sessionStorage.setItem("token", res.data.id);
+              $this.$store.commit('SET_TOKEN',res.data.return.session_id)
               this.noticeMsg = "登录成功";
               this.show = true;
               setTimeout(() => {
@@ -273,7 +276,5 @@ export default {
       opacity: 0.5;
     }
   }
-
-
 }
 </style>

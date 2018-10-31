@@ -35,6 +35,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
+-- Table structure for shops
+-- ----------------------------
+DROP TABLE IF EXISTS `shops`;
+CREATE TABLE `shops` (
+  `id` int(6) NOT NULL,
+  `name` char(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 -- Records 
 -- ----------------------------
 INSERT INTO `goods` VALUES ('6', '2018韩版新款网红高跟鞋秋季百搭女单鞋 英伦复古方头粗跟学院', '73.00', '//img.alicdn.com/bao/uploaded/i3/2884121096/O1CN011Jy0XMl46DKOcbx_!!2884121096.jpg_40x40.jpg');
