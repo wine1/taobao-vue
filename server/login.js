@@ -2,7 +2,7 @@ var router = require('./router.js');
 var pool = require('./pool.js');
 
 // pool.getConnection((err, connection) => {
-//   connection.query('insert into users (id,username,password) values ("2","jing","123")',function (err,result) { 
+//   connection.query('update users set password="1234" where username="123"',function (err,result) { 
 //     if(err) {
 //       throw err;
 //     }else {
@@ -33,7 +33,8 @@ router.get('/api/user/login', (req, res) => {
           })
         }
       }
-    })
+    });
+    connection.release();
   })
 
 })
@@ -47,14 +48,34 @@ router.post('/api/user/register', (req, res) => {
       } else {
         connection.query(sql, [req.body.username, req.body.password], (err, data) => {
           if (err) {
-            res.send(err)
+            res.send( )
           } else {
             res.send(data)
           }
-          connection.release()
+          
         })
       }
-    })
+    });
+    connection.release();
   })
 });
+//修改密码
+router.post('/api/user/repass',(req,res)=> {
+  var sql1 = 'select * from users where username =?';
+  var sql2 = 'update users set password=? where username=?'
+  pool.getConnection((err,connection)=> {
+    connection.query(sql1,[req.body.username,req.body.oldpass],(err,result)=>{
+      if(result.length > 0) {
+        connection.query(sql2,[req.body.newpass,req.body.username],(err,data)=>{
+          if(err) {
+            console.log(err)
+          }else {
+            res.send(data)
+          }
+        })
+      }
+    });
+    connection.release();
+  })
+})
 module.exports = router

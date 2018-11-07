@@ -8,7 +8,7 @@
       <li class="wrap-top"  @click="toMymsg">
         <div class="top">
           <img src="/static/image/ict_uik_avatar_normal.png" alt="">
-          <p class="userName">wine</p>
+          <p class="userName">{{username}}</p>
         </div>
         <p class="myMsg"></p>
       </li>
@@ -22,14 +22,18 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+    };
   },
 
   //  components: {},
 
-  //  computed: {},
+   computed: {
+     ...mapGetters(["username"])
+   },
 
   //  mounted: {},
 

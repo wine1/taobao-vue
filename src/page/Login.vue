@@ -105,13 +105,13 @@ export default {
         this.show = true;
         setTimeout(() => {
           this.show = false;
-        }, 2000);
+        }, 3000);
       } else if (this.tel && !validate.match(/[0-9]{6}/)) {
         this.noticeMsg = "请输入正确的验证码";
         this.show = true;
         setTimeout(() => {
           this.show = false;
-        }, 2000);
+        }, 3000);
       } else if (
         (username != "" && password != "") ||
         (number.length == 11 && validate.length == 6)
@@ -124,24 +124,21 @@ export default {
           .then(res => {
             if (res.status == 200) {
               // vuex的应用，获取username，两种方式均可
-              this.$store.dispatch('getUser', res.data.username)
-              // this.getUser(res.data.username);
-              // 存储登录信息
-              // window.sessionStorage.setItem("token", res.data.id);
-              $this.$store.commit('SET_TOKEN',res.data.return.session_id)
+              // this.$store.dispatch('getUser', res.data.username)
+              this.getUser(res.data.username);
               this.noticeMsg = "登录成功";
               this.show = true;
               setTimeout(() => {
                 this.show = false;
                 this.$router.push("/");
-              }, 2000);
+              }, 3000);
             } else {
               this.noticeMsg = "请输入正确的账号和密码";
               this.show = true;
               setTimeout(() => {
                 this.show = false;
                 this.$router.push("/");
-              }, 2000);
+              }, 3000);
             }
           })
           .catch(error => {
@@ -150,7 +147,7 @@ export default {
             this.show = true;
             setTimeout(() => {
               this.show = false;
-            }, 2000);
+            }, 3000);
           });
       } else {
       }

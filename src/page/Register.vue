@@ -18,15 +18,21 @@
          </form>
          <p>已阅读并同意以下协议<span>《淘宝服务协议》</span><span>《隐私权政策》</span><span>《支付宝服务协议》</span></p>
      </div>
+         <transition name="fade">
+      <p class="notice" v-show="show">{{noticeMsg}}</p>
+    </transition>
  </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      show: false,
+      noticeMsg:''
     };
   },
 
@@ -38,14 +44,34 @@ export default {
           password: this.password
         })
         .then(res => {
-          if (res.status === 200) {
-            console.log("success");
-            this.username = "";
-            this.password = "";
+          if (res.status == 200) {
+            // this.$store.dispatch('getUser', this.username)
+            this.getUser(this.username);
+            this.noticeMsg = "注册成功";
+            this.show = true;
+            setTimeout(() => {
+              this.username = "";
+              this.password = "";
+              this.show = false;
+              this.$router.push("/");
+            }, 3000);
+          }
+          else if(res.status == 500) {
+            console.log(500)
+            this.noticeMsg = "用户名已被注册";
+            this.show = true;
+            setTimeout(() => {
+              this.username = "";
+              this.password = "";
+              this.show = false;
+            }, 3000);
           }
         })
-        .catch(err => {});
-    }
+        .catch(err => {
+          console.log(err)
+        });
+    },
+     ...mapActions(["getUser"])
   }
 };
 </script>
@@ -136,6 +162,19 @@ export default {
         color: #333;
       }
     }
+  }
+  .notice {
+    position: absolute;
+    padding: 0.5rem 1rem;
+    left: 50%;
+    top: 50%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+    opacity: 1;
   }
 }
 </style>
