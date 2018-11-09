@@ -61,7 +61,7 @@ router.post('/api/user/register', (req, res) => {
 });
 //修改密码
 router.post('/api/user/repass',(req,res)=> {
-  var sql1 = 'select * from users where username =?';
+  var sql1 = 'select * from users where username =? and password=?';
   var sql2 = 'update users set password=? where username=?'
   pool.getConnection((err,connection)=> {
     connection.query(sql1,[req.body.username,req.body.oldpass],(err,result)=>{
@@ -73,6 +73,9 @@ router.post('/api/user/repass',(req,res)=> {
             res.send(data)
           }
         })
+      }else {
+        console.log(err)
+        res.status(500).send('用户名和密码不匹配')
       }
     });
     connection.release();

@@ -28,29 +28,7 @@ export default {
       }
     }
   },
-  // mounted:function() {
-  //   this.currentPath = this.$route.path;
-  //   this.isShow = (
-  //     this.currentPath == "/" ||
-  //     this.currentPath == "/cart" || 
-  //     this.currentPath == "/mine"||
-  //     this.currentPath == "/message"||
-  //     this.currentPath == "/weitao"
-  //   );
-  //   console.log(this.isShow)
-  // },
-  // watch: {
-  //   $route(to, from) {
-  //     this.currentPath = to.path;
-  //     this.isShow = (
-  //       this.currentPath == "/" ||
-  //       this.currentPath == "/cart" || 
-  //       this.currentPath == "/mine"||
-  //       this.currentPath == "/message"||
-  //       this.currentPath == "/weitao"
-  //     );
-  //   }
-  // }
+
 };
 </script>
 

@@ -32,7 +32,7 @@
     </div>
     <transition name="fade">
       <p class="notice" v-show="show">{{noticeMsg}}</p>
-    </transition>
+      </transition>
  </div>
 </template>
 
@@ -54,7 +54,6 @@ export default {
       show: false
     };
   },
-
 
   components: {},
 
@@ -125,6 +124,7 @@ export default {
             if (res.status == 200) {
               // vuex的应用，获取username，两种方式均可
               // this.$store.dispatch('getUser', res.data.username)
+              this.SET_TOKEN(res.data.id);
               this.getUser(res.data.username);
               this.noticeMsg = "登录成功";
               this.show = true;
@@ -133,26 +133,28 @@ export default {
                 this.$router.push("/");
               }, 3000);
             } else {
-              this.noticeMsg = "请输入正确的账号和密码";
-              this.show = true;
-              setTimeout(() => {
-                this.show = false;
-                this.$router.push("/");
-              }, 3000);
+              // this.noticeMsg = "请输入正确的账号和密码";
+              // this.show = true;
+              // setTimeout(() => {
+              //   this.show = false;
+              //   this.$router.push("/");
+              // }, 3000);
             }
           })
           .catch(error => {
             console.log(error);
-            this.noticeMsg = "服务器错误";
+            this.noticeMsg = "请输入正确的账号和密码";
             this.show = true;
             setTimeout(() => {
               this.show = false;
+              this.username = "";
+              this.password = "";
             }, 3000);
           });
       } else {
       }
     },
-    ...mapActions(["getUser"])
+    ...mapActions(["getUser", "SET_TOKEN"])
   },
   watch: {}
 };

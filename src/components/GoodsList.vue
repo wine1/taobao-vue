@@ -19,31 +19,16 @@ export default {
   name: "goodsList",
   data() {
     return {
-      goods: [],
-      noMore: false
+      noMore: true
     };
   },
-  props: {},
-
-  //  components: {},
-
-  //  computed: {},
-
-  created() {
-    this.getGoods();
+  props: {
+    goods: {}
   },
+
   mounted() {},
 
-  methods: {
-    // 获取商品列表
-    getGoods() {
-      this.$http.get(this.resource + "/api/goodslist/get").then(res => {
-        let data = res.data;
-        this.goods = data;
-        console.log(data);
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang='scss' scoped>
@@ -84,6 +69,10 @@ export default {
         }
       }
     }
+  }
+  .tips {
+    padding: 1rem 0;
+    text-align: center;
   }
 }
 </style> 

@@ -6,7 +6,10 @@
          <input type="password" v-model="reNewpass" placeholder="再次确认新密码">
          <input type="button" @click="changePass" value="提交">
      </div>
+      <transition name="fade">
         <p v-show="show" class="wran">{{wranMsg}}</p>
+      </transition>
+        
  </div>
  
 </template>
@@ -18,7 +21,8 @@ export default {
       oldpass: "",
       newpass: "",
       reNewpass: "",
-      wranMsg: ""
+      wranMsg: "",
+      show: false
     };
   },
 
@@ -45,15 +49,35 @@ export default {
           })
           .then(res => {
             if (res.status == 200) {
+              this.show = true;
               this.wranMsg = "修改密码成功";
-              this.newpass = "";
-              this.reNewpass = "";
+              setTimeout(() => {
+                this.show = false;
+                this.newpass = "";
+                this.reNewpass = "";
+                this.oldpass = "";
+                this.$router.push("/");
+              }, 3000);
             }
+          })
+          .catch(err => {
+            this.show = true;
+              this.wranMsg = "修改密码失败，请重新输入";
+              setTimeout(() => {
+                this.show = false;
+                this.newpass = "";
+                this.reNewpass = "";
+                this.oldpass = "";
+              }, 3000);
           });
       } else {
+        this.show = true;
         this.wranMsg = "两次新密码不一致";
-        this.newpass = "";
-        this.reNewpass = "";
+        setTimeout(() => {
+          this.show = false;
+          this.newpass = "";
+          this.reNewpass = "";
+        }, 3000);
       }
     }
   }
@@ -71,18 +95,24 @@ export default {
       border-bottom: 1px solid orangered;
       color: #666;
     }
-    .wran {
-      position: absolute;
-      margin-top: -0.5rem;
-      text-align: left;
-      color: red;
-    }
+
     input[type="button"] {
       margin-top: 2rem;
       padding: 0.8rem 0;
       color: #fff;
       background-color: orangered;
     }
+  }
+  .wran {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    padding: 1rem;
+    text-align: left;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateX(-50%);
+    border-radius: 5px;
   }
 }
 </style>

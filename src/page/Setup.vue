@@ -16,12 +16,13 @@
       <li @click="toChangepass">账户与安全</li>
     </ul>
   </div>
-  <footer>退出当前账户</footer>
+  <footer @click="loginout">退出当前账户</footer>
   <router-view />
  </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { mapState, mapGetters } from "vuex";
 export default {
   data() {
@@ -51,7 +52,14 @@ export default {
     },
     toChangepass(){
       this.$router.push("/changepass");
-    }
+    },
+    loginout() {
+      window.sessionStorage.clear();
+      this.getUser('');
+      this.$router.push('/')
+
+    },
+     ...mapActions(["getUser", "SET_TOKEN"])
   }
 };
 </script>

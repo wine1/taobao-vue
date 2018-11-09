@@ -26,10 +26,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 1. 主页展示 √
 2. 商品列表 √
 3. 登陆注册 √
- - 登录状态的保持和同步
+ - 登录状态的保持和同步 √
  - 修改密码 √
-4. 个人中心
+4. 个人中心 √
 5. 购物车
-6. 商品详情
-7. 店铺展示
+6. 商品详情 √
+7. 店铺展示 √
 8. 结算中心

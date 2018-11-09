@@ -11,12 +11,12 @@ var Mock = require('mockjs');
 //     }]
 //   }),
 
-  Mock.mock('/api/swiper', {
-    'swiper|6': [{
-      'id': '@id()',
-      'image': Mock.Random.image('200x100', '#ccc', '#FFF', 'png', 'hahaha')
-    }]
-  }),
+  // Mock.mock('/api/swiper', {
+  //   'swiper|6': [{
+  //     'id': '@id()',
+  //     'image': Mock.Random.image('200x100', '#ccc', '#FFF', 'png', 'hahaha')
+  //   }]
+  // }),
 
 //   Mock.mock('/api/shops', {
 //     'shop|6': [{

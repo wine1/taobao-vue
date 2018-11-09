@@ -13,6 +13,8 @@ Vue.use(VueAwesomeSwiper)
 // 引入axios
 import axios from 'axios'
 Vue.prototype.$http = axios
+
+//这里可以修改成localhost 或者自己电脑的ip
 Vue.prototype.resource = 'http://172.30.67.153:3000'
 //引入公共样式
 import "./style/_common.scss";
@@ -21,6 +23,16 @@ import "./style/_common.scss";
 require('./mock.js');
 
 Vue.config.productionTip = false
+
+
+// 导航守卫
+// router.beforeEach((to, from, next) => {
+//   // to and from are both route objects
+//   const token = store.state.token ?store.state.token : window.sessionStorage.getItem('token');
+//   if(token) {
+//     next();
+//   }
+// })
 
 /* eslint-disable no-new */
 new Vue({

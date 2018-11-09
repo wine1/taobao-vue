@@ -18,7 +18,7 @@
          </form>
          <p>已阅读并同意以下协议<span>《淘宝服务协议》</span><span>《隐私权政策》</span><span>《支付宝服务协议》</span></p>
      </div>
-         <transition name="fade">
+    <transition name="fade">
       <p class="notice" v-show="show">{{noticeMsg}}</p>
     </transition>
  </div>
@@ -56,19 +56,15 @@ export default {
               this.$router.push("/");
             }, 3000);
           }
-          else if(res.status == 500) {
-            console.log(500)
-            this.noticeMsg = "用户名已被注册";
+        })
+        .catch(err => {
+           this.noticeMsg = "用户名已被注册";
             this.show = true;
             setTimeout(() => {
               this.username = "";
               this.password = "";
               this.show = false;
             }, 3000);
-          }
-        })
-        .catch(err => {
-          console.log(err)
         });
     },
      ...mapActions(["getUser"])

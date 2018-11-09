@@ -2,7 +2,7 @@
  <div class="shop-container">
      <header>
         <p class="back" @click="back"></p>
-         <p class="shop-name">白日梦</p>
+         <p class="shop-name">{{shop.name}}</p>
          <ul>
              <li>
                  <p @click="toSearch" class="search">搜索</p>
@@ -13,33 +13,59 @@
      </header>
 
      <div class="main">
-       <goods-list></goods-list>
+       <goodsList :goods="goods"></goodsList>
      </div>
  </div>
 </template>
 
 <script>
-
 import goodsList from "@/components/GoodsList";
 export default {
   data() {
-    return {};
+    return {
+      shop: [],
+      goods: []
+    };
   },
 
-   components: {
-     goodsList,
-   },
+  components: {
+    goodsList
+  },
 
   //  computed: {},
 
-  //  mounted: {},
+  mounted() {
+    this.getshop();
+    this.getShoplist();
+  },
 
   methods: {
     toSearch() {
       this.$router.push("/search");
     },
-    back(){
+    back() {
       window.history.go(-1);
+    },
+    //获取店铺信息
+    getshop() {
+      this.$http
+        .get(this.resource + "/api/goodslist/shop", {
+          params: { shopid: this.$route.query.id }
+        })
+        .then(res => {
+          this.shop = res.data[0];
+        });
+    },
+    // 获取店铺商品类表
+    getShoplist() {
+      this.$http
+        .get(this.resource + "/api/goodslist/shoplist", {
+          params: { shopid: this.$route.query.id }
+        })
+        .then(res => {
+          let data = res.data;
+          this.goods = data;
+        });
     }
   }
 };

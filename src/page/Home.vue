@@ -9,7 +9,7 @@
    <!-- 轮播图 -->
    <swiper class="swiper" :options="swiperOption" ref="mySwiper">
     <swiper-slide v-for="items in swiper" :key="items.id">
-      <img :src='items.image'>
+         <img :src='items.pic'>
     </swiper-slide>
     <div class="swiper-pagination"  slot="pagination"></div>
   </swiper>
@@ -47,7 +47,7 @@
   </div>
   <!-- 头条新闻轮播 -->
   <!-- 商品列表 -->
-  <goods-list></goods-list>
+  <goods-list :goods="goods"></goods-list>
  <!-- 未登录时提示登录的条 -->
   <div class="login-bar" v-if="!username">
     <p>登录手机淘宝 打开精彩世界</p>
@@ -65,6 +65,7 @@ import Pop from "@/components/Pop";
 import goodsList from "@/components/GoodsList";
 import { swiper, swiperSlider } from "vue-awesome-swiper";
 import { mapState, mapGetters } from "vuex";
+
 export default {
   name: "home",
   components: {
@@ -77,7 +78,7 @@ export default {
     return {
       obj: {
         show: false,
-        popMsg: "hahaha",
+        popMsg: "hahaha"
       },
       swiper: [],
       swiperOption: {
@@ -85,7 +86,8 @@ export default {
         speed: 1000,
         direction: "horizontal",
         pagination: { el: ".swiper-pagination", clickable: true }
-      }
+      },
+      goods: []
     };
   },
   created() {},
@@ -94,17 +96,25 @@ export default {
   },
   mounted() {
     this.getPic();
+    this.getGoods();
   },
   methods: {
     //获取轮播图
     getPic() {
-      this.$http.get("/api/swiper").then(res => {
+      this.$http.get(this.resource + "/api/goodslist/swiper").then(res => {
         let pic = res.data;
-        this.swiper = pic.swiper;
+        console.log(pic);
+        this.swiper = pic;
       });
     },
     toSearch() {
       this.$router.push("/search");
+    },
+    getGoods() {
+      this.$http.get(this.resource + "/api/goodslist/get").then(res => {
+        let data = res.data;
+        this.goods = data;
+      });
     }
   }
 };

@@ -26,7 +26,7 @@
 
      <footer class="good-footer">
          <ul>
-             <li class="shop" @click="toShop">店铺</li>
+             <li class="shop"><router-link :to="{path:'shop', query:{id: good.shopid}}">店铺</router-link></li>
              <li class="service">客服</li>
              <li class="save" :class="{saved:isSaved}" @click="save">{{saveWord}}</li>
              <li class="add-cart"><p>加入购物车</p></li>
@@ -62,7 +62,6 @@ export default {
     // ...mapActions(["addToCart"]),
 
     getGood() {
-      console.log(this.$route.query.id )
       this.$http
         .get(this.resource + "/api/goodslist/details", {
           params: { goodsid: this.$route.query.id }
@@ -70,7 +69,6 @@ export default {
         .then(res => {
           let data = res.data[0];
           this.good = data;
-          console.log(data)
         });
     },
     save() {
@@ -187,9 +185,16 @@ export default {
           }
         }
         &.shop {
-          background: url(/static/image/tf_search_shop_title.png) no-repeat;
-          background-size: 2.2rem 2.2rem;
-          background-position: center 0.5rem;
+          a {
+            display: inline-block;
+            height: 100%;
+            padding-top: 2.5rem;
+            margin-top: -2.5rem;
+            background: url(/static/image/tf_search_shop_title.png) no-repeat;
+            background-size: 2.2rem 2.2rem;
+            background-position: center 0.5rem;
+            color: #333;
+          }
         }
         &.service {
           background: url(/static/image/shophead_wangwang_icon.png) no-repeat;
