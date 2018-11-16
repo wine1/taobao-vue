@@ -57,35 +57,33 @@ export default {
   name: "cart",
   data() {
     return {
-      allCount: '0',
+      allCount: "0",
       headerShow: false,
       shops: [],
       isCheck: false,
       popShow: false,
       isCheckAll: false,
-      isCheck: false,
+      isCheck: false
     };
   },
   components: {},
   computed: {
-    // ...mapGetters(["shopList"]),
-    // ...mapGetters(["cartProducts"])
-    allCount() {
-
-    }
+    ...mapGetters(["username"])
   },
   mounted() {
-    this.getJson();
+    this.getCart();
     window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
-    //从json文件获取数据
-    getJson() {
-      this.$http.get("/api/shops").then(res => {
-        let shops = res.data.shop;
-        this.shops = shops;
-        console.log(shops);
-      });
+    getCart() {
+      this.$http
+        .get(this.resource + "/api/carts/getcart", {
+          params: { username: this.username }
+        })
+        .then(res => {
+          this.cart = res.data;
+          console.log(res.data)
+        });
     },
     //选择
     // checked(item) {

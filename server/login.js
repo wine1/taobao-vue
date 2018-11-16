@@ -17,6 +17,7 @@ router.get('/api/user/login', (req, res) => {
     connection.query(sql, [req.query.username, req.query.password], (err, data) => {
       if (err) {
         res.send(err)
+        console.log(err)
       } else { 
         if (data.length > 0) {
           res.status(200).send({

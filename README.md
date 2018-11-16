@@ -29,7 +29,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
  - 登录状态的保持和同步 √
  - 修改密码 √
 4. 个人中心 √
-5. 购物车
+5. 购物车 添加收藏
 6. 商品详情 √
 7. 店铺展示 √
 8. 结算中心
+9. 订单列表

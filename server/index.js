@@ -8,6 +8,8 @@ var login = require('./login')
 app.use(login)
 var goodslist = require('./goodslist')
 app.use(goodslist)
+var carts = require('./carts')
+app.use(carts)
 
 var server = app.listen(3000, function () {
   // var server = app.listen(8000, function () {

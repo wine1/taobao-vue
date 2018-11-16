@@ -103,7 +103,6 @@ export default {
     getPic() {
       this.$http.get(this.resource + "/api/goodslist/swiper").then(res => {
         let pic = res.data;
-        console.log(pic);
         this.swiper = pic;
       });
     },

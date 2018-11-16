@@ -29,37 +29,41 @@
              <li class="shop"><router-link :to="{path:'shop', query:{id: good.shopid}}">店铺</router-link></li>
              <li class="service">客服</li>
              <li class="save" :class="{saved:isSaved}" @click="save">{{saveWord}}</li>
-             <li class="add-cart"><p>加入购物车</p></li>
+             <li class="add-cart" @click="addGood"><p>加入购物车</p></li>
              <li class="buy-it"><p>立即购买</p></li>
          </ul>
      </footer>
+     <msgTips :tips="tips"></msgTips>
  </div>
 </template>
 
 <script>
-// import {mapGetters, mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 // import { mapGetters, mapActions } from "vuex";
-
-import goodsList from "@/components/GoodsList";
+import msgTips from "@/components/MsgTips";
 export default {
   data() {
     return {
       good: {},
       isSaved: false,
-      saveWord: "收藏"
+      saveWord: "收藏",
+      tips: {
+        show: false,
+        msg: ""
+      }
     };
   },
 
-  //  components: {},
+  components: { msgTips },
 
-  //  computed: {},
-
+  computed: {
+    ...mapGetters(["username"])
+  },
   mounted() {
     this.getGood();
   },
 
   methods: {
-    // ...mapActions(["addToCart"]),
 
     getGood() {
       this.$http
@@ -69,6 +73,20 @@ export default {
         .then(res => {
           let data = res.data[0];
           this.good = data;
+        });
+    },
+    addGood() {
+      this.$http
+        .post(this.resource + "/api/carts/addgood", {
+          username: this.username,
+          goodid: this.$route.query.id
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.tips.show = true;
+            this.tips.msg = "商品已经在购物车等您咯~";
+            console.log("chenggong");
+          }
         });
     },
     save() {

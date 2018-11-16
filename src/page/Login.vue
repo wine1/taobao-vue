@@ -133,12 +133,6 @@ export default {
                 this.$router.push("/");
               }, 3000);
             } else {
-              // this.noticeMsg = "请输入正确的账号和密码";
-              // this.show = true;
-              // setTimeout(() => {
-              //   this.show = false;
-              //   this.$router.push("/");
-              // }, 3000);
             }
           })
           .catch(error => {
