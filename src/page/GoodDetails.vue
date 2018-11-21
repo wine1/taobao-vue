@@ -85,7 +85,6 @@ export default {
           if (res.status == 200) {
             this.tips.show = true;
             this.tips.msg = "商品已经在购物车等您咯~";
-            console.log("chenggong");
           }
         });
     },

@@ -8,7 +8,7 @@
       <p class="setUp" @click="toSetup"></p>
     </header>
     <div class="main">
-      <p class="tit">我的订单<span>查看全部订单</span></p>
+      <p class="tit">我的订单<span @click="toOrder">查看全部订单</span></p>
       <ul class="list">
         <li>待付款</li>
         <li>待发货</li>
@@ -26,6 +26,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      list: []
     };
   },
   components: {},
@@ -35,7 +36,22 @@ export default {
   methods: {
     toSetup() {
       this.$router.push("/setup");
+    },
+    toOrder() {
+      this.$router.push('./orderlist')
     }
+    // getorder() {
+    //   this.$http
+    //     .get(this.resource + "/api/order/getlist", {
+    //       params: {
+    //         username: this.username
+    //       }
+    //     })
+    //     .then(res => {
+    //       this.list = res.data;
+    //       console.log(this.list);
+    //     });
+    // }
   }
 };
 </script>

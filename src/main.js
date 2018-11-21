@@ -25,14 +25,7 @@ require('./mock.js');
 Vue.config.productionTip = false
 
 
-// 导航守卫
-// router.beforeEach((to, from, next) => {
-//   // to and from are both route objects
-//   const token = store.state.token ?store.state.token : window.sessionStorage.getItem('token');
-//   if(token) {
-//     next();
-//   }
-// })
+
 
 /* eslint-disable no-new */
 new Vue({

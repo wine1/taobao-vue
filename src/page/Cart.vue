@@ -13,34 +13,27 @@
         <span class="ri">管理</span></p>
         <p class="total">共有{{allCount}}件宝贝</p>
       </div>
-      <div class="list">
-        <div class="shop" v-for="shop in shops">
-          <div class="shopTit">
-            <i :class="{check:isCheck}" class="checkbox"></i>
-            <p>{{shop.shopname}}</p>
+      <ul class="list">
+        <li v-for="item in cart" :key="item.id">
+          <p class="checkbox" :class="{check:item.isCheck}"  @click="checked(item)"></p>
+          <img :src="item.pic" alt="">
+          <div class="right">
+            <p class="name">{{item.name}}</p>
+            <p class="price">{{item.price}}</p>
+            <p class="amount">{{item.goodamount}}</p>
           </div>
-          <div class="goods" v-for="good in shop.good" :key="good.id">
-            <i class="checkbox" :class="{check:good.isCheck}" ></i>
-            <img :src="good.image" alt="">
-            <div class="details">
-              <p>{{good.goodname}}</p>
-              <div class="wrap">
-                <p class="count"><span>-</span>{{good.count}}<span>+</span></p>
-                <p class="price">￥{{good.price}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </li>
+      
+      </ul>
     </div>
 
     <footer>
       <p class="footer-left">
-        <i :class="{check:isCheck}" class="checkbox"></i><span>全选</span>
+        <i :class="{check:isCheckAll}" class="checkbox" @click="checkall()"></i><span>全选</span>
       </p>
       <div class="footer-right">
-        <p>合计：<span>￥0</span></p>
-        <p class="btn">结算(<span>0</span>)</p>
+        <p>合计：<span>￥{{allprice}}</span></p>
+        <p class="btn" @click="settlement">结算({{allprice}})</p>
       </div>
     </footer>
 
@@ -63,7 +56,8 @@ export default {
       isCheck: false,
       popShow: false,
       isCheckAll: false,
-      isCheck: false
+      cart: [],
+      allprice: 0
     };
   },
   components: {},
@@ -72,7 +66,7 @@ export default {
   },
   mounted() {
     this.getCart();
-    window.addEventListener("scroll", this.handleScroll);
+    // window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
     getCart() {
@@ -81,26 +75,66 @@ export default {
           params: { username: this.username }
         })
         .then(res => {
+          res.data.forEach(item => {
+            item.isCheck = false;
+          });
           this.cart = res.data;
-          console.log(res.data)
+          console.log(this.cart);
+          this.allCount = this.cart.length;
         });
     },
     //选择
-    // checked(item) {
-    //   item.isCheck = !item.isCheck;
-    // }
+    checked(item) {
+      item.isCheck = !item.isCheck;
+      this.price();
+    },
+    //全选
+    checkall() {
+      this.isCheckAll = !this.isCheckAll;
+      this.cart.forEach(item => {
+        item.isCheck = !item.isCheck;
+      });
+      this.price();
+    },
+    // 计算价格
+    price() {
+      var price = 0;
+      this.cart.forEach(item => {
+        if (item.isCheck) {
+          price += parseInt(item.price);
+        }
+      });
+      this.allprice = price;
+    },
     // 滚动事件
-    handleScroll() {
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      console.log(scrollTop);
-      if (scrollTop > 100) {
-        this.headerShow = true;
-      } else {
-        this.headerShow = false;
-      }
+    // handleScroll() {
+    //   var scrollTop =
+    //     window.pageYOffset ||
+    //     document.documentElement.scrollTop ||
+    //     document.body.scrollTop;
+    //   if (scrollTop > 100) {
+    //     this.headerShow = true;
+    //   } else {
+    //     this.headerShow = false;
+    //   }
+    // },
+    settlement() {
+      let time = Date.parse(new Date());
+      console.log(time)
+      this.cart.forEach(item => {
+        if (item.isCheck) {
+          this.$http
+            .post(this.resource + "/api/order/savelist", {
+              username: this.username,
+              goodid: item.id,
+              goodamount: item.goodamount,
+              orderid: time
+            })
+            .then(res => {
+              console.log(res.data);
+            });
+        }
+      });
     }
   },
   watch: {}
@@ -109,6 +143,8 @@ export default {
 <style lang='scss' scoped>
 @import "../style/_normalize.scss";
 .cartContainer {
+  height: 100%;
+  background-color: #efefef;
   .checkbox {
     display: inline-block;
     width: 1.5rem;
@@ -145,7 +181,6 @@ export default {
     text-align: left;
     margin-bottom: 9rem;
     padding-bottom: 1rem;
-    background-color: #efefef;
     .top {
       position: relative;
       top: 0;
@@ -178,70 +213,28 @@ export default {
       }
     }
     .list {
-      margin-top: -4rem;
-      .shop {
+      position: relative;
+      margin: -3.5rem 1rem;
+      border-radius: 8px;
+      background-color: #fff;
+      li {
         position: relative;
-        margin: 1rem;
-        background: #fff;
-        border-radius: 6px;
-        padding: 0.6rem;
-        .shopTit {
-          p {
-            display: inline-block;
-            vertical-align: middle;
-          }
+        padding: 1rem;
+        overflow: hidden;
+        img {
+          width: 5rem;
+          vertical-align: middle;
         }
-        .goods {
-          margin: 1rem 0;
-          input {
-            float: left;
+        .right {
+          position: absolute;
+          margin: 0 1rem 0 8rem;
+          top: 1rem;
+          .price {
+            color: #ff7d08;
           }
-          img {
-            display: inline-block;
-            width: 6rem;
-            height: 5rem;
-            margin: 0 0.5rem;
-            vertical-align: top;
-          }
-          .details {
-            width: 55%;
-            display: inline-block;
-            vertical-align: middle;
-            .wrap {
-              margin: 0.5rem;
-              overflow: hidden;
-              p {
-                height: 1.8rem;
-                line-height: 2rem;
-                vertical-align: middle;
-                &.count {
-                  float: right;
-                  width: 6rem;
-                  border: 1px solid #ccc;
-                  text-align: center;
-                  span {
-                    padding: 0 0.5rem;
-                    &:first-of-type {
-                      float: left;
-                      margin-right: 0.7rem;
-                      border-right: 1px solid #ccc;
-                    }
-                    &:last-of-type {
-                      float: right;
-                      margin-left: 0.7rem;
-                      border-left: 1px solid #ccc;
-                    }
-                  }
-                }
-                &.price {
-                  float: left;
-                  color: orangered;
-                }
-              }
-            }
-            p {
-              vertical-align: middle;
-            }
+          .amount {
+            float: right;
+            margin: -1rem 1rem 0 0;
           }
         }
       }

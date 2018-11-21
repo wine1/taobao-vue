@@ -10,6 +10,8 @@ var goodslist = require('./goodslist')
 app.use(goodslist)
 var carts = require('./carts')
 app.use(carts)
+var order = require('./order')
+app.use(order)
 
 var server = app.listen(3000, function () {
   // var server = app.listen(8000, function () {
