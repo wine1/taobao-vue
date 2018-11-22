@@ -3,7 +3,7 @@ var pool = require('./pool.js');
 
 //添加到购物车
 router.post('/api/carts/addgood', (req, res) => {
-    var sql = 'insert into carts values(null,?,?,1)'
+    var sql = 'insert into carts values(null,?,?,1)';
     pool.getConnection((err, connection) => {
         connection.query('select goodamount from carts where username=? and goodid=?', [req.body.username, req.body.goodid], (err, result) => {
             if (result.length > 0) {

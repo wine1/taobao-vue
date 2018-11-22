@@ -23,8 +23,10 @@
             <p class="amount">{{item.goodamount}}</p>
           </div>
         </li>
-      
       </ul>
+      <div class="nothing" v-if="nothing">
+        <p>您的购物车空空如也~</p>
+      </div>
     </div>
 
     <footer>
@@ -57,12 +59,13 @@ export default {
       popShow: false,
       isCheckAll: false,
       cart: [],
-      allprice: 0
+      allprice: 0,
+      nothing:false
     };
   },
   components: {},
   computed: {
-    ...mapGetters(["username"])
+    ...mapGetters(["username"]),
   },
   mounted() {
     this.getCart();
@@ -81,6 +84,9 @@ export default {
           this.cart = res.data;
           console.log(this.cart);
           this.allCount = this.cart.length;
+          if(this.allCount == 0) {
+            this.nothing = true;
+          }
         });
     },
     //选择
@@ -131,9 +137,13 @@ export default {
               orderid: time
             })
             .then(res => {
+              //重新加载购物车
+              this.getCart();
+              // 重新计算价格
+              this.price();
               console.log(res.data);
             });
-        }
+          }
       });
     }
   },
@@ -279,6 +289,16 @@ export default {
         }
       }
     }
+  }
+  .nothing {
+    position: relative;
+    width: 60%;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin: 30% 20% 0;
+    text-align: center;
+    border-radius: 6px;
   }
   .pop-count {
     position: absolute;

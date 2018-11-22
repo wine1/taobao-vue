@@ -4,13 +4,22 @@ var pool = require('./pool.js');
 //将订单存入数据库
 router.post('/api/order/savelist', (req, res) => {
     var sql = "insert into orderlist values (null,?,?,?,?)";
+    var sql2 = 'delete from carts where username=? and goodid=?';
     pool.getConnection((err, connection) => {
-        connection.query(sql, [req.body.username, req.body.goodid, req.body.goodamount, req.body.orderid], (err, data) => {
+
+        connection.query(sql2, [req.body.username, req.body.goodid], (err, data) => {
             if (err) {
                 res.send()
                 console.log(err)
             } else {
-                res.send(data)
+                connection.query(sql, [req.body.username, req.body.goodid, req.body.goodamount, req.body.orderid], (err, data) => {
+                    if (err) {
+                        res.send()
+                        console.log(err)
+                    } else {
+                        res.send(data)
+                    }
+                })
             }
         })
         connection.release();

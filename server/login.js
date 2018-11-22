@@ -2,7 +2,7 @@ var router = require('./router.js');
 var pool = require('./pool.js');
 
 // pool.getConnection((err, connection) => {
-//   connection.query('update users set password="1234" where username="123"',function (err,result) { 
+//   connection.query('delete from carts where username="1234" and goodid="6"',function (err,result) { 
 //     if(err) {
 //       throw err;
 //     }else {

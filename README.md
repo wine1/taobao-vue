@@ -32,5 +32,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 5. 购物车 √
 6. 商品详情 √
 7. 店铺展示 √
-8. 结算中心 
-9. 订单列表
+8. 结算中心 √
+9. 订单列表 √
+10. 搜索
