@@ -78,7 +78,7 @@ export default {
     return {
       obj: {
         show: false,
-        popMsg: "hahaha"
+        popMsg: ""
       },
       swiper: [],
       swiperOption: {

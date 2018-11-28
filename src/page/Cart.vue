@@ -38,16 +38,15 @@
         <p class="btn" @click="settlement">结算({{allprice}})</p>
       </div>
     </footer>
-
-  <div class="pop-count" v-show="popShow">
-    balabala
-  </div>
+    <msgTips :tips='tips' v-show="show"></msgTips>
+  
  </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
 <script>
 import { mapGetters } from "vuex";
+import msgTips from "@/components/MsgTips";
 export default {
   name: "cart",
   data() {
@@ -60,12 +59,19 @@ export default {
       isCheckAll: false,
       cart: [],
       allprice: 0,
-      nothing:false
+      nothing: false,
+      show: false,
+      tips:{
+        msg: '订单已成功，请到 我的订单 中查看'
+      }
     };
   },
-  components: {},
+  components: {
+    msgTips
+  },
   computed: {
     ...mapGetters(["username"]),
+    
   },
   mounted() {
     this.getCart();
@@ -84,14 +90,29 @@ export default {
           this.cart = res.data;
           console.log(this.cart);
           this.allCount = this.cart.length;
-          if(this.allCount == 0) {
+          if (this.allCount == 0) {
             this.nothing = true;
+            setTimeout(()=>{
+              this.show = false;
+            },2000)
           }
         });
     },
     //选择
     checked(item) {
       item.isCheck = !item.isCheck;
+      let i =0;
+      let le = this.cart.length;
+      this.cart.forEach(item => {
+        if(item.isCheck) {
+          i++;
+        }
+      });
+      if(i == le) {
+        this.isCheckAll = true;
+      }else {
+        this.isCheckAll = false;
+      }
       this.price();
     },
     //全选
@@ -107,7 +128,7 @@ export default {
       var price = 0;
       this.cart.forEach(item => {
         if (item.isCheck) {
-          price += parseInt(item.price);
+          price += parseInt(item.price) * item.goodamount;
         }
       });
       this.allprice = price;
@@ -125,26 +146,29 @@ export default {
     //   }
     // },
     settlement() {
-      let time = Date.parse(new Date());
-      console.log(time)
-      this.cart.forEach(item => {
-        if (item.isCheck) {
-          this.$http
-            .post(this.resource + "/api/order/savelist", {
-              username: this.username,
-              goodid: item.id,
-              goodamount: item.goodamount,
-              orderid: time
-            })
-            .then(res => {
-              //重新加载购物车
-              this.getCart();
-              // 重新计算价格
-              this.price();
-              console.log(res.data);
-            });
+      if (this.allprice == 0) {
+        return;
+      } else {
+        let time = Date.parse(new Date());
+        this.cart.forEach(item => {
+          if (item.isCheck) {
+            this.$http
+              .post(this.resource + "/api/order/savelist", {
+                username: this.username,
+                goodid: item.id,
+                goodamount: item.goodamount,
+                orderid: time
+              })
+              .then(res => {
+                //重新加载购物车
+                this.getCart();
+                this.allprice = 0;
+                this.isCheckAll = false;
+                this.show = true;
+              });
           }
-      });
+        });
+      }
     }
   },
   watch: {}

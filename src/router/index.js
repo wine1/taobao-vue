@@ -17,6 +17,7 @@ import ChangePhoto from '@/page/ChangePhoto'
 import Shop from '@/page/Shop'
 import Search from '@/page/Search'
 import OrderList from '@/page/OrderList'
+import Order from '@/page/Order'
 Vue.use(Router)
 
 export default new Router({
@@ -92,5 +93,9 @@ export default new Router({
     path: '/orderlist',
     name: 'OrderList',
     component: OrderList,
+  },{
+    path:'/order',
+    name:'Order',
+    component:Order
   }]
 })

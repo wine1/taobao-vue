@@ -1,7 +1,7 @@
 <template>
  <div class="msgtipsContainer">
    <transition name="fade">
-      <p v-if="show">{{msg}}</p>
+      <p>{{msg}}</p>
    </transition>
  </div>
 </template>
@@ -10,7 +10,6 @@
 export default {
   data() {
     return {
-      show: this.tips.show,
       msg: this.tips.msg
     };
   },
@@ -29,7 +28,7 @@ export default {
 .msgtipsContainer {
   p {
     position: absolute;
-    padding: 0.5rem 1rem;
+    padding: 1.5rem 1rem;
     left: 50%;
     top: 50%;
     border-radius: 5px;

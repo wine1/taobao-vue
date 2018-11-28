@@ -35,3 +35,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 8. 结算中心 √
 9. 订单列表 √
 10. 搜索
+
+todo: 每个页面进去之前判断登录状态
+
+

@@ -33,7 +33,7 @@
              <li class="buy-it"><p>立即购买</p></li>
          </ul>
      </footer>
-     <msgTips :tips="tips"></msgTips>
+     <msgTips v-if="show" :tips="tips"></msgTips>
  </div>
 </template>
 
@@ -47,9 +47,9 @@ export default {
       good: {},
       isSaved: false,
       saveWord: "收藏",
+      show: false,
       tips: {
-        show: false,
-        msg: ""
+        msg: "商品已经在购物车等您咯~"
       }
     };
   },
@@ -83,8 +83,10 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.tips.show = true;
-            this.tips.msg = "商品已经在购物车等您咯~";
+            this.show = true;
+            setTimeout(()=>{
+              this.show = false;
+            },1500)
           }
         });
     },
