@@ -34,8 +34,13 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 7. 店铺展示 √
 8. 结算中心 √
 9. 订单列表 √
-10. 搜索
 
-todo: 每个页面进去之前判断登录状态
+todo: 
+- 每个页面进去之前判断登录状态
+- 登录注册的判断有漏洞（数据库无法存入中文）
+- 增加购物车中的店铺分类
+- 增加一个订单结算页面
 
 
+
+\h5\WAP\wap\html

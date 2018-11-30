@@ -1,27 +1,35 @@
 <template>
- <div class="registerContainer">
-     <header><router-link to="/login"><img src="/static/image/new_logistic_back_arrow.png"></router-link>
-        <p class="nav">快速注册</p>
-        <p class="help">帮助</p>
-     </header>
-     <div class="main">
-         <!-- <p class="region">国家地区<span>+86</span></p> -->
-         <form>
-             <div class="wrap">
-                <input type="text" v-model="username" placeholder="请输入用户名">
-             </div>
-             <div class="wrap">
-                 <input type="text" v-model="password" placeholder="请输入密码">
-                 <!-- <a>获取验证码</a> -->
-             </div>
-             <a class="register" @click="register">同意协议并注册</a>
-         </form>
-         <p>已阅读并同意以下协议<span>《淘宝服务协议》</span><span>《隐私权政策》</span><span>《支付宝服务协议》</span></p>
-     </div>
+  <div class="registerContainer">
+    <header>
+      <router-link to="/login">
+        <img src="/static/image/new_logistic_back_arrow.png">
+      </router-link>
+      <p class="nav">快速注册</p>
+      <p class="help">帮助</p>
+    </header>
+    <div class="main">
+      <!-- <p class="region">国家地区<span>+86</span></p> -->
+      <form>
+        <div class="wrap">
+          <input type="text" v-model="username" placeholder="请输入用户名">
+        </div>
+        <div class="wrap">
+          <input type="text" v-model="password" placeholder="请输入密码">
+          <!-- <a>获取验证码</a> -->
+        </div>
+        <a class="register" @click="register" :class="{disable:disable}">同意协议并注册</a>
+      </form>
+      <p>
+        已阅读并同意以下协议
+        <span>《淘宝服务协议》</span>
+        <span>《隐私权政策》</span>
+        <span>《支付宝服务协议》</span>
+      </p>
+    </div>
     <transition name="fade">
       <p class="notice" v-show="show">{{noticeMsg}}</p>
     </transition>
- </div>
+  </div>
 </template>
 
 <script>
@@ -32,42 +40,52 @@ export default {
       username: "",
       password: "",
       show: false,
-      noticeMsg:''
+      noticeMsg: ""
     };
   },
-
+  computed: {
+    disable() {
+      if (this.username && this.password) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
   methods: {
     register() {
-      this.$http
-        .post(this.resource + "/api/user/register", {
-          username: this.username,
-          password: this.password
-        })
-        .then(res => {
-          if (res.status == 200) {
-            // this.$store.dispatch('getUser', this.username)
-            this.getUser(this.username);
-            this.noticeMsg = "注册成功";
+      if (this.username && this.password) {
+        this.$http
+          .post(this.resource + "/api/user/register", {
+            username: this.username,
+            password: this.password
+          })
+          .then(res => {
+            if (res.status == 200) {
+              // this.$store.dispatch('getUser', this.username)
+              this.getUser(this.username);
+              this.noticeMsg = "注册成功";
+              this.show = true;
+              setTimeout(() => {
+                this.username = "";
+                this.password = "";
+                this.show = false;
+                this.$router.push("/");
+              }, 3000);
+            }
+          })
+          .catch(err => {
+            this.noticeMsg = "用户名已被注册";
             this.show = true;
             setTimeout(() => {
               this.username = "";
               this.password = "";
               this.show = false;
-              this.$router.push("/");
             }, 3000);
-          }
-        })
-        .catch(err => {
-           this.noticeMsg = "用户名已被注册";
-            this.show = true;
-            setTimeout(() => {
-              this.username = "";
-              this.password = "";
-              this.show = false;
-            }, 3000);
-        });
+          });
+      }
     },
-     ...mapActions(["getUser"])
+    ...mapActions(["getUser"])
   }
 };
 </script>
@@ -147,6 +165,9 @@ export default {
         line-height: 3.5rem;
         text-align: center;
         background: -webkit-linear-gradient(left, orange, orangered);
+        &.disable {
+          opacity: 0.5;
+        }
       }
     }
 
