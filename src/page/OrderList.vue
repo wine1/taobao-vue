@@ -45,6 +45,7 @@ export default {
         .then(res => {
           this.list = res.data;
           console.log(this.list);
+          console.log(1);
           if(this.list.length == 0) {
             this.nothing=true;
           }

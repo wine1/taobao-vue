@@ -1,22 +1,24 @@
 <template>
- <div class="cartContainer">
-   <transition name='fade'>
-    <header v-show="headerShow">
-      <p>购物车{{allCount}}</p>
-      <p class="manage">管理</p>
-    </header>
-   </transition>
+  <div class="cartContainer">
+    <transition name="fade">
+      <header v-show="headerShow">
+        <p>购物车{{allCount}}</p>
+        <p class="manage">管理</p>
+      </header>
+    </transition>
 
     <div class="main">
       <div class="top">
-        <p><span class="le">购物车</span>
-        <span class="ri">管理</span></p>
+        <p>
+          <span class="le">购物车</span>
+          <span class="ri">管理</span>
+        </p>
         <p class="total">共有{{allCount}}件宝贝</p>
       </div>
       <ul class="list">
         <li v-for="item in cart" :key="item.id">
-          <p class="checkbox" :class="{check:item.isCheck}"  @click="checked(item)"></p>
-          <img :src="item.pic" alt="">
+          <p class="checkbox" :class="{check:item.isCheck}" @click="checked(item)"></p>
+          <img :src="item.pic" alt>
           <div class="right">
             <p class="name">{{item.name}}</p>
             <p class="price">{{item.price}}</p>
@@ -31,16 +33,18 @@
 
     <footer>
       <p class="footer-left">
-        <i :class="{check:isCheckAll}" class="checkbox" @click="checkall()"></i><span>全选</span>
+        <i :class="{check:isCheckAll}" class="checkbox" @click="checkall()"></i>
+        <span>全选</span>
       </p>
       <div class="footer-right">
-        <p>合计：<span>￥{{allprice}}</span></p>
+        <p>合计：
+          <span>￥{{allprice}}</span>
+        </p>
         <p class="btn" @click="settlement">结算({{allprice}})</p>
       </div>
     </footer>
-    <msgTips :tips='tips' v-show="show"></msgTips>
-  
- </div>
+    <msgTips :tips="tips" v-show="show"></msgTips>
+  </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
@@ -117,11 +121,21 @@ export default {
     },
     //全选
     checkall() {
-      this.isCheckAll = !this.isCheckAll;
-      this.cart.forEach(item => {
-        item.isCheck = !item.isCheck;
-      });
+      // this.isCheckAll = !this.isCheckAll;
+      if(this.isCheckAll == false){
+        this.isCheckAll = true;
+        this.cart.forEach(item => {
+          item.isCheck = true;
+        })
+        }else {
+        this.isCheckAll = false;
+          this.cart.forEach(item => {
+            item.isCheck = false;
+          })
+        }
+    
       this.price();
+    
     },
     // 计算价格
     price() {
