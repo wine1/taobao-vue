@@ -1,4 +1,4 @@
-var Mock = require('mockjs');
+var Mock = require("mockjs");
 
 // Mock.mock('/api/users', {
 //     'users|10': [{
@@ -11,12 +11,12 @@ var Mock = require('mockjs');
 //     }]
 //   }),
 
-  // Mock.mock('/api/swiper', {
-  //   'swiper|6': [{
-  //     'id': '@id()',
-  //     'image': Mock.Random.image('200x100', '#ccc', '#FFF', 'png', 'hahaha')
-  //   }]
-  // }),
+// Mock.mock('/api/swiper', {
+//   'swiper|6': [{
+//     'id': '@id()',
+//     'image': Mock.Random.image('200x100', '#ccc', '#FFF', 'png', 'hahaha')
+//   }]
+// }),
 
 //   Mock.mock('/api/shops', {
 //     'shop|6': [{
@@ -32,7 +32,11 @@ var Mock = require('mockjs');
 //       }]
 //     }]
 //   }),
-
-  Mock.setup({
-    timeout: '200 - 400'
-  })
+Mock.mock("/api/city", {
+  "citys|50":[{
+   "city":'@city()'
+  }]
+});
+Mock.setup({
+  timeout: "200 - 400"
+});

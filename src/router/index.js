@@ -18,6 +18,7 @@ import Shop from '@/page/Shop'
 import Search from '@/page/Search'
 import OrderList from '@/page/OrderList'
 import Order from '@/page/Order'
+import Scroll from '@/page/Scroll'
 Vue.use(Router)
 
 export default new Router({
@@ -97,5 +98,9 @@ export default new Router({
     path:'/order',
     name:'Order',
     component:Order
+  },{
+    path:'/scroll',
+    name:'Scroll',
+    component:Scroll
   }]
 })
