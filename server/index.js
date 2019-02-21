@@ -12,6 +12,8 @@ var carts = require('./carts')
 app.use(carts)
 var order = require('./order')
 app.use(order)
+var city = require('./city')
+app.use(city)
 
 var server = app.listen(3000, function () {
   // var server = app.listen(8000, function () {

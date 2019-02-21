@@ -14,7 +14,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `carts`;
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` char(11) CHARACTER SET latin1 NOT NULL,
+  `username` char(11) CHARACTER SET utf8 NOT NULL,
   `goodid` int(11) NOT NULL,
   `goodamount` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -28,7 +28,7 @@ CREATE TABLE `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `city` varchar(255) NOT NULL,
   PRIMARY KEY (`id`,`city`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for goods
@@ -42,7 +42,7 @@ CREATE TABLE `goods` (
   `shopid` int(11) NOT NULL,
   `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for orderlist
@@ -55,7 +55,7 @@ CREATE TABLE `orderlist` (
   `goodamount` int(11) NOT NULL,
   `orderid` char(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT  CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for save
@@ -66,7 +66,7 @@ CREATE TABLE `save` (
   `userid` int(11) DEFAULT NULL,
   `issave` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for shops
@@ -76,7 +76,7 @@ CREATE TABLE `shops` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `name` char(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for users

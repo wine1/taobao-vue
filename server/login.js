@@ -49,7 +49,8 @@ router.post('/api/user/register', (req, res) => {
       } else {
         connection.query(sql, [req.body.username, req.body.password], (err, data) => {
           if (err) {
-            res.send( )
+            res.send()
+            console.log(err)
           } else {
             res.send(data)
           }
@@ -83,19 +84,5 @@ router.post('/api/user/repass',(req,res)=> {
   })
 })
 
-// 获取城市列表
-router.get("/api/city", (req, res) => {
-  var sql = "select * from city";
-  pool.getConnection((err, connection) => {
-    connection.query(sql, (err, data) => {
-      if (err) {
-        res.send();
-      } else {
-        res.send(data);
-      }
-    });
-    connection.release();
-  });
-});
 
 module.exports = router

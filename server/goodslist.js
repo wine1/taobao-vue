@@ -77,7 +77,6 @@ router.get('/api/goodslist/swiper', (req, res) => {
             } else {
                 if (data.length > 0) {
                     res.send(data)
-                    console.log(data)
                 }
             }
         })

@@ -36,7 +36,6 @@ router.get('/api/order/getlist', (req, res) => {
                 console.log(err)
             } else {
                 res.send(data)
-                console.log(data)
             }
         })
         connection.release();

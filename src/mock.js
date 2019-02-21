@@ -32,11 +32,11 @@ var Mock = require("mockjs");
 //       }]
 //     }]
 //   }),
-Mock.mock("/api/city", {
-  "citys|50":[{
-   "city":'@city()'
-  }]
-});
+// Mock.mock("/api/city", {
+//   "citys|50":[{
+//    "city":'@city()'
+//   }]
+// });
 Mock.setup({
   timeout: "200 - 400"
 });

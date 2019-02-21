@@ -14,7 +14,7 @@
           <input type="text" v-model="username" placeholder="请输入用户名">
         </div>
         <div class="wrap">
-          <input type="text" v-model="password" placeholder="请输入密码">
+          <input type="password" v-model="password" placeholder="请输入密码">
           <!-- <a>获取验证码</a> -->
         </div>
         <a class="register" @click="register" :class="{disable:disable}">同意协议并注册</a>
