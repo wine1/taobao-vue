@@ -9,7 +9,7 @@
    <!-- 轮播图 -->
    <swiper class="swiper" :options="swiperOption" ref="mySwiper">
     <swiper-slide v-for="items in swiper" :key="items.id">
-         <img :src='items.pic'>
+         <img :src='items.bannerCover'>
     </swiper-slide>
     <div class="swiper-pagination"  slot="pagination"></div>
   </swiper>
@@ -101,18 +101,18 @@ export default {
   methods: {
     //获取轮播图
     getPic() {
-      this.$http.get(this.resource + "/api/goodslist/swiper").then(res => {
-        let pic = res.data;
-        this.swiper = pic;
+      this.$http.get(this.resource+"/api/goodslist/swiper").then(res => {
+        console.log('banner',res.data)
+        this.swiper = res.data.data;
       });
     },
     toSearch() {
       this.$router.push("/search");
     },
     getGoods() {
-      this.$http.get(this.resource + "/api/goodslist/get").then(res => {
-        let data = res.data;
-        this.goods = data;
+      this.$http.get(this.resource + "/api/goodslist/getGoodsList").then(res => {  
+        console.log('goodslist',res.data)
+        this.goods = res.data.data;
       });
     }
   }

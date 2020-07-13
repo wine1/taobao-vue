@@ -2,7 +2,7 @@ var router = require('./router.js');
 var pool = require('./pool.js');
 
 //获取商品列表
-router.get('/api/goodslist/get', (req, res) => {
+router.get('/api/goodslist/getGoodsList', (req, res) => {
     let sql = 'select * from goods';
     pool.getConnection((err, connection) => {
         connection.query(sql, (err, data) => {

@@ -15,7 +15,7 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 
 //这里可以修改成localhost 或者自己电脑的ip
-Vue.prototype.resource = 'http://172.30.66.29:3000'
+Vue.prototype.resource = 'http://localhost:4005'
 //引入公共样式
 import "./style/_common.scss";
 

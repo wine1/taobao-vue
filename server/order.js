@@ -26,7 +26,7 @@ router.post('/api/order/savelist', (req, res) => {
     })
 })
 //取出订单数据
-router.get('/api/order/getlist', (req, res) => {
+router.get('/api/order/getOrderList', (req, res) => {
     var sql = 'select goods.*,orderlist.goodamount from goods, orderlist where orderlist.username = ? '
     // var sql = 'select * from orderlist where username = ?'
     pool.getConnection((err, connection) => {

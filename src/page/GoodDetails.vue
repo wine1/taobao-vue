@@ -77,7 +77,7 @@ export default {
     },
     addGood() {
       this.$http
-        .post(this.resource + "/api/carts/addgood", {
+        .post(this.resource + "/api/order/updateOrderList", {
           username: this.username,
           goodid: this.$route.query.id
         })

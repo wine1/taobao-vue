@@ -42,7 +42,7 @@ export default {
     }
     // getorder() {
     //   this.$http
-    //     .get(this.resource + "/api/order/getlist", {
+    //     .get(this.resource + "/api/order/getOrderList", {
     //       params: {
     //         username: this.username
     //       }

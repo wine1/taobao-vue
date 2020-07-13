@@ -126,6 +126,7 @@ export default {
             params: { username: this.username, password: this.password }
           })
           .then(res => {
+            console.log('login',res)
             if (res.status === 200) {
               // vuex的应用，获取username，两种方式均可
               // this.$store.dispatch('getUser', res.data.username)
