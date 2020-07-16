@@ -2,30 +2,30 @@
   <div class="loginContainer">
     <header>
       <router-link to="/">
-        <img src="/static/image/new_logistic_back_arrow.png">
+        <img src="/static/image/new_logistic_back_arrow.png" />
       </router-link>
       <p class="help">帮助</p>
     </header>
     <!-- 暂时没法做电话号码注册以及验证 -->
     <div class="main">
-      <img src="/static/image/qrcode_icon.png" alt>
+      <img src="/static/image/qrcode_icon.png" alt />
       <form v-show="account" class="account">
         <div class="wrap">
-          <input type="text" v-model="username" placeholder="请输入淘宝账户">
+          <input type="text" v-model="username" placeholder="请输入淘宝账户" />
         </div>
         <div class="wrap">
           <p @click="changeEye" :class="{see:canSee}"></p>
-          <input :type="type" v-model="password" placeholder="请输入密码">
+          <input :type="type" v-model="password" placeholder="请输入密码" />
           <button>忘记密码</button>
         </div>
       </form>
       <form v-show="tel" class="tel">
         <div class="wrap">
           <p>+86</p>
-          <input type="tel" v-model="number" maxlength="11" placeholder="请输入电话号码">
+          <input type="tel" v-model="number" maxlength="11" placeholder="请输入电话号码" />
         </div>
         <div class="wrap">
-          <input type="tel" maxlength="6" v-model="validate" placeholder="请输入验证码">
+          <input type="tel" maxlength="6" v-model="validate" placeholder="请输入验证码" />
           <button>获取验证码</button>
         </div>
       </form>
@@ -126,8 +126,8 @@ export default {
             params: { username: this.username, password: this.password }
           })
           .then(res => {
-            console.log('login',res)
-            if (res.status === 200) {
+            console.log("login", res);
+            if (res.status === 200 || res.data.code==0) {
               // vuex的应用，获取username，两种方式均可
               // this.$store.dispatch('getUser', res.data.username)
               this.SET_TOKEN(res.data.id);
@@ -138,8 +138,8 @@ export default {
                 this.show = false;
                 this.$router.push("/");
               }, 3000);
-            } else if(res.status === 304){
-              console.log('qingxiangzhuce')
+            } else if (res.status === 304) {
+              console.log("qingxiangzhuce");
             }
           })
           .catch(error => {
@@ -191,6 +191,7 @@ export default {
         border-bottom: 1px solid orangered;
         margin: 1.5rem 0;
         padding: 0.5rem 0 0.5rem 3rem;
+        background-color: #fff;F
         input {
           width: 60%;
           border: 0;
